@@ -14,9 +14,15 @@ Project sederhana membuat Sistem Informasi Perpustakaan berbasis Restful API men
 - [x] Create Migration table
 - [x] Create Seed data akun admin
 - [x] Register siswa
-- [ ] Login With JWT
-- [ ] CRUD Buku
-- [ ] CRUD peminjaman
+- [x] Login With JWT
+- [ ] CRUDF Buku
+    - [ ] CRUDF Detail buku
+    - [ ] CRUDF Jenis buku
+    - [ ] CRUDF Penulis buku
+    - [ ] CRUDF Penerbit buku
+- [ ] CRUDF peminjaman
+    - [ ] CRUDF Detail pinjam
+    - [ ] CRUDF Denda
 - [ ] <b> DONE!!</b> 
 
 # How To Install
