@@ -8,9 +8,9 @@ import (
 
 func MigrateKeDB() {
 	config.Db.DropTableIfExists(&models.Pegawai{}, &models.Anggota{}, &structs.Buku{}, &structs.Jenis_Buku{},
-		&structs.Penerbit_Buku{}, &structs.Detail_buku{}, &structs.Peminjaman{}, &structs.Detail_pinjam{}, &structs.Denda{}) //Drops the table if already exists
+		&structs.Penerbit_Buku{}, &structs.Detail_buku{}, &structs.Peminjaman{}, &structs.DetailPinjam{}, &structs.Denda{}) //Drops the table if already exists
 
 	config.Db.AutoMigrate(&models.Pegawai{}, &models.Anggota{}, &structs.Buku{}, &structs.Jenis_Buku{},
-		&structs.Penerbit_Buku{}, &structs.Detail_buku{}, &structs.Peminjaman{}, &structs.Detail_pinjam{}, &structs.Denda{})
+		&structs.Penerbit_Buku{}, &structs.Detail_buku{}, &structs.Peminjaman{}, &structs.DetailPinjam{}, &structs.Denda{})
 
 }
