@@ -13,3 +13,11 @@ func Hash(pw string) string {
 	}
 	return password
 }
+
+func VerifikasiPassword(hashedPassword, password string) (bool, error) {
+	match, err := argon2id.ComparePasswordAndHash(password, hashedPassword)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return match, err
+}

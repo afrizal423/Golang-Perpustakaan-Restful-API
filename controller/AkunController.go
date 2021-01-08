@@ -3,7 +3,6 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/afrizal423/Golang-Perpustakaan-Restful-API/config"
@@ -39,5 +38,29 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	m["data"] = regisAnggota
 	w.Header().Set("Location", fmt.Sprintf("%s%s/%d", r.Host, r.RequestURI, regisAnggota.IDAnggota))
 	responses.JSON(w, http.StatusCreated, m)
-	log.Print(user)
+	// log.Print(user)
+}
+
+func LoginAdmin(w http.ResponseWriter, r *http.Request) {
+	var user models.Pegawai
+	// decode data json request ke struct user
+	err := json.NewDecoder(r.Body).Decode(&user)
+
+	if err != nil {
+		responses.ERROR(w, http.StatusUnprocessableEntity, err)
+	}
+	user.Persiapan("")
+	err = user.Validasi()
+	if err != nil {
+		responses.ERROR(w, http.StatusUnprocessableEntity, err)
+		return
+	}
+	token, _ := user.ProsesLogin()
+	// log.Print(token)
+	if err != nil {
+		formattedError := formaterror.FormatError(err.Error())
+		responses.ERROR(w, http.StatusUnprocessableEntity, formattedError)
+		return
+	}
+	responses.JSON(w, http.StatusOK, token)
 }

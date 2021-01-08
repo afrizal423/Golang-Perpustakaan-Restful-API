@@ -10,5 +10,6 @@ func Router() *mux.Router {
 	router := mux.NewRouter()
 	// router.HandleFunc("/seed", migrate.MigrateKeDB).Methods("GET", "OPTIONS")
 	router.HandleFunc("/register", middlewares.RenderKeJSON(controller.Register)).Methods("POST", "OPTIONS")
+	router.HandleFunc("/loginadmin", middlewares.RenderKeJSON(controller.LoginAdmin)).Methods("POST")
 	return router
 }
