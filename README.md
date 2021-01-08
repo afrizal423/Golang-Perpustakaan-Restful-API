@@ -13,7 +13,7 @@ Project sederhana membuat Sistem Informasi Perpustakaan berbasis Restful API men
 ### ToDo List Pengerjaan Project :pushpin:
 - [x] Create Migration table
 - [x] Create Seed data akun admin
-- [ ] Register siswa
+- [x] Register siswa
 - [ ] Login With JWT
 - [ ] CRUD Buku
 - [ ] CRUD peminjaman
