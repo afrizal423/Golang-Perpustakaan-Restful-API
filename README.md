@@ -4,7 +4,7 @@
 
 # Sistem Informasi Perpustakaan Berbasis Rest API
 
-Project sederhana membuat Sistem Informasi Perpustakaan berbasis Restful API menggunakan bahasa pemrograman Go dengan database MySql. Alur projectnya kurang lebihnya seperti [ini](https://core.ac.uk/download/pdf/12347733.pdf).
+Project sederhana membuat Sistem Informasi Perpustakaan berbasis Restful API menggunakan bahasa pemrograman Go dengan database MySql. Alur projectnya kurang lebihnya seperti [ini](https://core.ac.uk/download/pdf/12347733.pdf). Password hash menggunakan argon2id
 
 ### User Level :boy: :woman:
 - Pegawai 
@@ -12,7 +12,7 @@ Project sederhana membuat Sistem Informasi Perpustakaan berbasis Restful API men
 
 ### ToDo List Pengerjaan Project :pushpin:
 - [x] Create Migration table
-- [ ] Create Seed data akun admin
+- [x] Create Seed data akun admin
 - [ ] Register siswa
 - [ ] Login With JWT
 - [ ] CRUD Buku
