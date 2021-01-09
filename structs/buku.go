@@ -33,7 +33,7 @@ type Detail_buku struct {
 type Jenis_Buku struct {
 	// gorm.Model
 	IDJenis   uint32 `gorm:"primary_key;auto_increment" json:"id"`
-	JenisBuku string `gorm:"size:255;not null;unique" json:"isbn"`
+	JenisBuku string `gorm:"size:255;not null;unique" json:"jenis_buku"`
 	Deskripsi string `gorm:"type:text;null;" json:"deskripsi"`
 }
 
