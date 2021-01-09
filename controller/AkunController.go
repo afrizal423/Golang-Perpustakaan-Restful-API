@@ -62,7 +62,16 @@ func LoginAdmin(w http.ResponseWriter, r *http.Request) {
 		responses.ERROR(w, http.StatusUnprocessableEntity, formattedError)
 		return
 	}
-	responses.JSON(w, http.StatusOK, token)
+
+	if token == nil {
+		m := make(map[string]string)
+		m["status"] = "failed"
+		m["pesan"] = "username/password salah"
+		responses.JSON(w, http.StatusOK, m)
+	} else {
+		responses.JSON(w, http.StatusOK, token)
+	}
+
 }
 
 func Home(w http.ResponseWriter, r *http.Request) {

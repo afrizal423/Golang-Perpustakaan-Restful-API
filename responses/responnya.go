@@ -17,11 +17,28 @@ func JSON(w http.ResponseWriter, statusCode int, data interface{}) {
 func ERROR(w http.ResponseWriter, statusCode int, err error) {
 	if err != nil {
 		JSON(w, statusCode, struct {
-			Error string `json:"error"`
+			Status string `json:"status"`
+			Pesan  string `json:"pesan"`
 		}{
-			Error: err.Error(),
+			Status: "error",
+			Pesan:  err.Error(),
 		})
 		return
 	}
 	JSON(w, http.StatusBadRequest, nil)
+}
+
+func Sukses(data interface{}) interface{} {
+	m := make(map[string]interface{})
+	m["status"] = "sukses"
+	m["data"] = data
+	return m
+}
+
+func Gagal(data interface{}, pesan string) interface{} {
+	m := make(map[string]interface{})
+	m["status"] = "gagal"
+	m["status"] = pesan
+	m["data"] = data
+	return m
 }

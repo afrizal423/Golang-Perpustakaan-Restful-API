@@ -19,7 +19,7 @@ var admin = []models.Pegawai{
 	},
 }
 
-func Load() {
+func Seed_admin() {
 	db := config.Db
 
 	// masukkan ke db

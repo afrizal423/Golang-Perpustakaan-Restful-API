@@ -17,7 +17,7 @@ Project sederhana membuat Sistem Informasi Perpustakaan berbasis Restful API men
 - [x] Login With JWT
 - [ ] CRUDF Buku
     - [ ] CRUDF Detail buku
-    - [ ] CRUDF Jenis buku
+    - [x] CRUDF Jenis buku
     - [ ] CRUDF Penulis buku
     - [ ] CRUDF Penerbit buku
 - [ ] CRUDF peminjaman

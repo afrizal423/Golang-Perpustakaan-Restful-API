@@ -21,5 +21,8 @@ func FormatError(err string) error {
 	if strings.Contains(err, "hashedPassword") {
 		return errors.New("Password Salah")
 	}
+	if strings.Contains(err, "jenis_buku") {
+		return errors.New("Jenis buku sudah terpakai")
+	}
 	return errors.New("Incorrect Details")
 }
