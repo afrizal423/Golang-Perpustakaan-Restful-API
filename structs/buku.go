@@ -43,7 +43,7 @@ type Penulis_Buku struct {
 	PenulisBuku   string `gorm:"size:255;not null;unique" json:"penulis_buku"`
 	AlamatPenulis string `gorm:"size:255;null;" json:"alamat"`
 	EmailPenulis  string `gorm:"size:255;null;unique" json:"email"`
-	Deskripsi     string `gorm:"type:text;not null;" json:"deskripsi"`
+	Deskripsi     string `gorm:"type:text;null;" json:"deskripsi"`
 }
 
 type Penerbit_Buku struct {
