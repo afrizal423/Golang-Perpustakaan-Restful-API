@@ -84,15 +84,15 @@ func (u *JenisBuku) UpdateJenisBuku(db *gorm.DB, uid uint32) (*JenisBuku, error)
 	return jenbuk, nil
 }
 
-func (u *JenisBuku) CariJenisBuku(db *gorm.DB, q string) (*[]JenisBuku, error) {
-	var err error
+func (u *JenisBuku) CariJenisBuku(db *gorm.DB, q string) (*[]JenisBuku, *gorm.DB) {
+	// var err error
 	jenbuk := []JenisBuku{}
 
 	// tampilkan hasil update data
-	err = db.Debug().Model(&JenisBuku{}).Where("jenis_buku LIKE ? OR deskripsi LIKE ?", "%"+q+"%", "%"+q+"%").Find(&jenbuk).Error
+	qq := db.Debug().Model(&JenisBuku{}).Where("jenis_buku LIKE ? OR deskripsi LIKE ?", "%"+q+"%", "%"+q+"%").Find(&jenbuk)
 
-	if err != nil {
-		return &[]JenisBuku{}, err
-	}
-	return &jenbuk, nil
+	// if err != nil {
+	// 	return &[]JenisBuku{}, err
+	// }
+	return &jenbuk, qq
 }

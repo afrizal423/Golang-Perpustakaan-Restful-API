@@ -36,12 +36,16 @@ func LihatJenisBuku(w http.ResponseWriter, r *http.Request) {
 
 	if query.Get("q") != "" {
 		// fmt.Println(query.Get("q"))
-		bukus, err := buku.CariJenisBuku(config.Db, query.Get("q"))
-		if err != nil {
-			responses.ERROR(w, http.StatusInternalServerError, err)
-			return
-		}
-		responses.JSON(w, http.StatusOK, responses.Sukses(bukus))
+		_, bukus := buku.CariJenisBuku(config.Db, query.Get("q"))
+		halaman, _ := strconv.ParseUint(query.Get("page"), 10, 32)
+		var buku []BukuModels.JenisBuku
+		paginator := pagination.Paging(&pagination.Param{
+			DB:    bukus,
+			Page:  int(halaman),
+			Limit: 3,
+			// OrderBy: []string{"id desc"},
+		}, &buku)
+		responses.JSON(w, http.StatusOK, responses.Sukses(paginator))
 		return
 	}
 	halaman, _ := strconv.ParseUint(query.Get("page"), 10, 32)
