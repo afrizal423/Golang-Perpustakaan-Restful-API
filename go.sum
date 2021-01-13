@@ -4,6 +4,8 @@ github.com/alexedwards/argon2id v0.0.0-20201228115903-cf543ebc1f7b/go.mod h1:Kmn
 github.com/andybalholm/cascadia v1.1.0/go.mod h1:GsXiBklL0woXo1j/WYWtSYYC4ouU9PqHO0sqidkEA4Y=
 github.com/badoux/checkmail v1.2.1 h1:TzwYx5pnsV6anJweMx2auXdekBwGr/yt1GgalIx9nBQ=
 github.com/badoux/checkmail v1.2.1/go.mod h1:XroCOBU5zzZJcLvgwU15I+2xXyCdTWXyR9MGfRhBYy0=
+github.com/badoux/checkmail v1.2.2-0.20201221123543-ea0008cdd39d h1:CLODuFRUSClTc59afbbnoUUg/rfTrd6F8o60vNWXiBs=
+github.com/badoux/checkmail v1.2.2-0.20201221123543-ea0008cdd39d/go.mod h1:XroCOBU5zzZJcLvgwU15I+2xXyCdTWXyR9MGfRhBYy0=
 github.com/biezhi/gorm-paginator v0.0.2 h1:ErKKbS6pq/3KOlvAcwju3tKg+ocRqVMmZ+X7aj8I8MM=
 github.com/biezhi/gorm-paginator/pagination v0.0.0-20190124091837-7a5c8ed20334 h1:ptFjQ4+vPGZDiNmBuKUetQoREFiPz/WB29CfQfdfeKc=
 github.com/biezhi/gorm-paginator/pagination v0.0.0-20190124091837-7a5c8ed20334/go.mod h1:Y/N4aF7p+Med/9ivVSsGBc8xOs8BGptUVBCY3k4KFCY=
