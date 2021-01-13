@@ -1,7 +1,10 @@
 package BukuModels
 
 import (
+	"errors"
+
 	"github.com/afrizal423/Golang-Perpustakaan-Restful-API/structs"
+	"github.com/badoux/checkmail"
 	"github.com/jinzhu/gorm"
 )
 
@@ -17,6 +20,29 @@ func (u *PenulisBuku) LihatPenulisBuku(db *gorm.DB) (*[]PenulisBuku, error) {
 	return &penbuk, err
 }
 
+func (u *PenulisBuku) Validasi() error {
+	if u.PenulisBuku == "" {
+		return errors.New("Required PenulisBuku")
+	}
+	if u.EmailPenulis == "" {
+		return errors.New("Required EmailPenulis")
+	}
+	if err := checkmail.ValidateFormat(u.EmailPenulis); err != nil {
+		return errors.New("Invalid Email")
+	}
+	return nil
+}
+
+func (u *PenulisBuku) TambahPenulisBuku(db *gorm.DB) (*PenulisBuku, error) {
+
+	var err error
+	err = db.Debug().Create(&u).Error
+	if err != nil {
+		return &PenulisBuku{}, err
+	}
+	return u, nil
+}
+
 func (u *PenulisBuku) DetailPenulisBuku(db *gorm.DB, uid uint32) (*PenulisBuku, error) {
 	penbuk := PenulisBuku{}
 
@@ -26,4 +52,14 @@ func (u *PenulisBuku) DetailPenulisBuku(db *gorm.DB, uid uint32) (*PenulisBuku, 
 		return &PenulisBuku{}, err
 	}
 	return &penbuk, nil
+}
+
+func (u *PenulisBuku) HapusPenulisBuku(db *gorm.DB, uid uint32) (int64, error) {
+
+	db = db.Debug().Model(&PenulisBuku{}).Where("id_penulis = ?", uid).Take(&PenulisBuku{}).Delete(&PenulisBuku{})
+
+	if db.Error != nil {
+		return 0, db.Error
+	}
+	return db.RowsAffected, nil
 }
