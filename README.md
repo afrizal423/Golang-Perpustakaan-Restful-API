@@ -8,7 +8,7 @@ Project sederhana membuat Sistem Informasi Perpustakaan berbasis Restful API men
 
 ### User Level :boy: :woman:
 - Pegawai 
-- Siswa
+- Siswa  <i>(soon)</i> 
 
 ### ToDo List Pengerjaan Project :pushpin:
 - [x] Create Migration table
@@ -18,7 +18,7 @@ Project sederhana membuat Sistem Informasi Perpustakaan berbasis Restful API men
 - [ ] CRUDF Buku
     - [ ] CRUDF Detail buku
     - [x] CRUDF Jenis buku
-    - [ ] CRUDF Penulis buku
+    - [x] CRUDF Penulis buku
     - [ ] CRUDF Penerbit buku
 - [ ] CRUDF peminjaman
     - [ ] CRUDF Detail pinjam
