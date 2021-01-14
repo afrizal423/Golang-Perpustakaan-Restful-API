@@ -33,6 +33,20 @@ func LihatPenulisBuku(w http.ResponseWriter, r *http.Request) {
 		responses.JSON(w, http.StatusOK, responses.Sukses(bukus))
 		return
 	}
+	if query.Get("q") != "" {
+		// fmt.Println(query.Get("q"))
+		_, bukus := buku.CariPenulisBuku(config.Db, query.Get("q"))
+		halaman, _ := strconv.ParseUint(query.Get("page"), 10, 32)
+		var buku []BukuModels.PenulisBuku
+		paginator := pagination.Paging(&pagination.Param{
+			DB:    bukus,
+			Page:  int(halaman),
+			Limit: 3,
+			// OrderBy: []string{"id desc"},
+		}, &buku)
+		responses.JSON(w, http.StatusOK, responses.Sukses(paginator))
+		return
+	}
 	halaman, _ := strconv.ParseUint(query.Get("page"), 10, 32)
 	paginator := pagination.Paging(&pagination.Param{
 		DB:    config.Db,
@@ -81,4 +95,30 @@ func HapusPenulisBuku(w http.ResponseWriter, r *http.Request) {
 	}
 	// w.Header().Set("Entity", fmt.Sprintf("%d", id))
 	responses.JSON(w, http.StatusOK, responses.Sukses(fmt.Sprintf("Data dengan id %d sukses terhapus ", id)))
+}
+
+func UpdatePenulisBuku(w http.ResponseWriter, r *http.Request) {
+	var penbuk BukuModels.PenulisBuku
+	query := r.URL.Query()
+	id, _ := strconv.ParseUint(query.Get("id"), 10, 32)
+	if id == 0 {
+		responses.ERROR(w, http.StatusInternalServerError, fmt.Errorf("URL Invalid"))
+		return
+	}
+	err := json.NewDecoder(r.Body).Decode(&penbuk)
+	if err != nil {
+		responses.ERROR(w, http.StatusUnprocessableEntity, err)
+	}
+	err = penbuk.Validasi()
+	if err != nil {
+		responses.ERROR(w, http.StatusUnprocessableEntity, err)
+		return
+	}
+	updateData, err := penbuk.UpdatePenulisBuku(config.Db, uint32(id))
+	if err != nil {
+		formattedError := formaterror.FormatError(err.Error())
+		responses.ERROR(w, http.StatusInternalServerError, formattedError)
+		return
+	}
+	responses.JSON(w, http.StatusOK, responses.Sukses(updateData))
 }

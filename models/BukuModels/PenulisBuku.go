@@ -63,3 +63,41 @@ func (u *PenulisBuku) HapusPenulisBuku(db *gorm.DB, uid uint32) (int64, error) {
 	}
 	return db.RowsAffected, nil
 }
+
+func (u *PenulisBuku) CariPenulisBuku(db *gorm.DB, q string) (*[]PenulisBuku, *gorm.DB) {
+	// var err error
+	penbuk := []PenulisBuku{}
+
+	// tampilkan hasil update data
+	qq := db.Debug().Model(&PenulisBuku{}).Where("penulis_buku LIKE ? OR alamat_penulis LIKE ? OR email_penulis LIKE ?", "%"+q+"%", "%"+q+"%", "%"+q+"%").Find(&penbuk)
+
+	// if err != nil {
+	// 	return &[]JenisBuku{}, err
+	// }
+	return &penbuk, qq
+}
+
+func (u *PenulisBuku) UpdatePenulisBuku(db *gorm.DB, uid uint32) (*PenulisBuku, error) {
+	var err error
+	penbuk := &PenulisBuku{}
+
+	db = db.Debug().Model(penbuk).Where("id_penulis = ?", uid).Take(penbuk).UpdateColumns(
+		map[string]interface{}{
+			"penulis_buku":   u.PenulisBuku,
+			"alamat_penulis": u.AlamatPenulis,
+			"email_penulis":  u.EmailPenulis,
+			"deskripsi":      u.Deskripsi,
+		},
+	)
+
+	if db.Error != nil {
+		return &PenulisBuku{}, db.Error
+	}
+
+	// tampilkan hasil update data
+	err = db.Debug().Model(&PenulisBuku{}).Where("id_penulis = ?", uid).Take(&u).Error
+	if err != nil {
+		return &PenulisBuku{}, err
+	}
+	return penbuk, nil
+}

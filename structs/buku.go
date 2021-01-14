@@ -42,7 +42,7 @@ type Penulis_Buku struct {
 	IDPenulis     uint32 `gorm:"primary_key;auto_increment" json:"id"`
 	PenulisBuku   string `gorm:"size:255;not null;unique" json:"penulis_buku"`
 	AlamatPenulis string `gorm:"size:255;null;" json:"alamat"`
-	EmailPenulis  string `gorm:"size:255;null;unique" json:"email"`
+	EmailPenulis  string `gorm:"size:255;null;unique" json:"email_penulis"`
 	Deskripsi     string `gorm:"type:text;null;" json:"deskripsi"`
 }
 
