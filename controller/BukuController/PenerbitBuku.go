@@ -21,6 +21,32 @@ func LihatPenerbitBuku(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	query := r.URL.Query()
+	id, _ := strconv.ParseUint(query.Get("id"), 10, 32)
+	// Lihat Detail jenis buku
+	if id != 0 {
+		bukus, err := buku.DetailPenerbitBuku(config.Db, uint32(id))
+		if err != nil {
+			responses.ERROR(w, http.StatusInternalServerError, err)
+			return
+		}
+		// fmt.Println(bukus)
+		responses.JSON(w, http.StatusOK, responses.Sukses(bukus))
+		return
+	}
+	if query.Get("q") != "" {
+		// fmt.Println(query.Get("q"))
+		_, bukus := buku.CariPenerbitBuku(config.Db, query.Get("q"))
+		halaman, _ := strconv.ParseUint(query.Get("page"), 10, 32)
+		var buku []BukuModels.PenerbitBuku
+		paginator := pagination.Paging(&pagination.Param{
+			DB:    bukus,
+			Page:  int(halaman),
+			Limit: 3,
+			// OrderBy: []string{"id desc"},
+		}, &buku)
+		responses.JSON(w, http.StatusOK, responses.Sukses(paginator))
+		return
+	}
 	halaman, _ := strconv.ParseUint(query.Get("page"), 10, 32)
 	paginator := pagination.Paging(&pagination.Param{
 		DB:    config.Db,

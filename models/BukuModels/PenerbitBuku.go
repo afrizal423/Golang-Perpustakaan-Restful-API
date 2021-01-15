@@ -41,3 +41,23 @@ func (u *PenerbitBuku) TambahPenerbitBuku(db *gorm.DB) (*PenerbitBuku, error) {
 	}
 	return u, nil
 }
+
+func (u *PenerbitBuku) DetailPenerbitBuku(db *gorm.DB, uid uint32) (*PenerbitBuku, error) {
+	pubbuk := PenerbitBuku{}
+
+	err := db.Debug().Model(pubbuk).Where("id_penerbit = ?", uid).Find(&pubbuk).Error
+
+	if err != nil {
+		return &PenerbitBuku{}, err
+	}
+	return &pubbuk, nil
+}
+
+func (u *PenerbitBuku) CariPenerbitBuku(db *gorm.DB, q string) (*[]PenerbitBuku, *gorm.DB) {
+	// var err error
+	pubbuk := []PenerbitBuku{}
+
+	qq := db.Debug().Model(&PenerbitBuku{}).Where("penerbit_buku LIKE ? OR email_penerbit LIKE ? OR deskripsi LIKE ?", "%"+q+"%", "%"+q+"%", "%"+q+"%").Find(&pubbuk)
+
+	return &pubbuk, qq
+}
