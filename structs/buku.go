@@ -50,8 +50,8 @@ type Penerbit_Buku struct {
 	// gorm.Model
 	IDPenerbit     uint32 `gorm:"primary_key;auto_increment" json:"id"`
 	PenerbitBuku   string `gorm:"size:255;not null;unique" json:"penerbit_buku"`
-	AlamatPenerbit string `gorm:"size:255;null;unique" json:"alamat"`
-	TelpPenerbit   string `gorm:"size:255;null;unique" json:"telp"`
-	EmailPenerbit  string `gorm:"size:255;null;unique" json:"email"`
-	Deskripsi      string `gorm:"type:text;null;" json:"deskripsi"`
+	AlamatPenerbit string `gorm:"size:255;null" json:"alamat_penerbit"`
+	TelpPenerbit   string `gorm:"size:255;null" json:"telp_penerbit"`
+	EmailPenerbit  string `gorm:"size:255;null;unique" json:"email_penerbit"`
+	Deskripsi      string `gorm:"type:text;null;" json:"deskripsi_penerbit"`
 }
