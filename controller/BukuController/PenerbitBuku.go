@@ -80,3 +80,46 @@ func TambahPenerbitBuku(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Location", fmt.Sprintf("%s%s/%d", r.Host, r.RequestURI, tmbhData.IDPenerbit))
 	responses.JSON(w, http.StatusCreated, tmbhData)
 }
+
+func HapusPenerbitBuku(w http.ResponseWriter, r *http.Request) {
+	var pubbuk BukuModels.PenerbitBuku
+	query := r.URL.Query()
+	id, _ := strconv.ParseUint(query.Get("id"), 10, 32)
+	if id == 0 {
+		responses.ERROR(w, http.StatusInternalServerError, fmt.Errorf("URL Invalid"))
+		return
+	}
+	_, err := pubbuk.HapusPenerbitBuku(config.Db, uint32(id))
+	if err != nil {
+		responses.ERROR(w, http.StatusInternalServerError, err)
+		return
+	}
+	// w.Header().Set("Entity", fmt.Sprintf("%d", id))
+	responses.JSON(w, http.StatusOK, responses.Sukses(fmt.Sprintf("Data dengan id %d sukses terhapus ", id)))
+}
+
+func UpdatePenerbitBuku(w http.ResponseWriter, r *http.Request) {
+	var pubbuk BukuModels.PenerbitBuku
+	query := r.URL.Query()
+	id, _ := strconv.ParseUint(query.Get("id"), 10, 32)
+	if id == 0 {
+		responses.ERROR(w, http.StatusInternalServerError, fmt.Errorf("URL Invalid"))
+		return
+	}
+	err := json.NewDecoder(r.Body).Decode(&pubbuk)
+	if err != nil {
+		responses.ERROR(w, http.StatusUnprocessableEntity, err)
+	}
+	err = pubbuk.Validasi()
+	if err != nil {
+		responses.ERROR(w, http.StatusUnprocessableEntity, err)
+		return
+	}
+	updateData, err := pubbuk.UpdatePenerbitBuku(config.Db, uint32(id))
+	if err != nil {
+		formattedError := formaterror.FormatError(err.Error())
+		responses.ERROR(w, http.StatusInternalServerError, formattedError)
+		return
+	}
+	responses.JSON(w, http.StatusOK, responses.Sukses(updateData))
+}

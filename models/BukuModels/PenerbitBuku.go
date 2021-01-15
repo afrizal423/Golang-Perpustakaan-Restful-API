@@ -61,3 +61,34 @@ func (u *PenerbitBuku) CariPenerbitBuku(db *gorm.DB, q string) (*[]PenerbitBuku,
 
 	return &pubbuk, qq
 }
+
+func (u *PenerbitBuku) UpdatePenerbitBuku(db *gorm.DB, uid uint32) (*PenerbitBuku, error) {
+	var err error
+	pubbuk := &PenerbitBuku{}
+
+	db = db.Debug().Model(pubbuk).Where("id_penerbit = ?", uid).Take(pubbuk).UpdateColumns(
+		map[string]interface{}{
+			"penerbit_buku":   u.PenerbitBuku,
+			"alamat_penerbit": u.AlamatPenerbit,
+			"telp_penerbit":   u.TelpPenerbit,
+			"email_penerbit":  u.EmailPenerbit,
+			"deskripsi":       u.Deskripsi,
+		},
+	)
+
+	err = db.Debug().Model(&PenerbitBuku{}).Where("id_penerbit = ?", uid).Take(&u).Error
+	if err != nil {
+		return &PenerbitBuku{}, err
+	}
+	return pubbuk, nil
+}
+
+func (u *PenerbitBuku) HapusPenerbitBuku(db *gorm.DB, uid uint32) (int64, error) {
+
+	db = db.Debug().Model(&PenerbitBuku{}).Where("id_penerbit = ?", uid).Take(&PenerbitBuku{}).Delete(&PenerbitBuku{})
+
+	if db.Error != nil {
+		return 0, db.Error
+	}
+	return db.RowsAffected, nil
+}

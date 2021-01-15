@@ -28,5 +28,7 @@ func Router() *mux.Router {
 
 	router.HandleFunc("/api/penerbitbuku", middlewares.RenderKeJSON(middlewares.HarusAuth(BukuController.LihatPenerbitBuku))).Methods("GET")
 	router.HandleFunc("/api/penerbitbuku", middlewares.RenderKeJSON(middlewares.HarusAuth(BukuController.TambahPenerbitBuku))).Methods("POST")
+	router.HandleFunc("/api/penerbitbuku", middlewares.RenderKeJSON(middlewares.HarusAuth(BukuController.UpdatePenerbitBuku))).Methods("PUT")
+	router.HandleFunc("/api/penerbitbuku", middlewares.RenderKeJSON(middlewares.HarusAuth(BukuController.HapusPenerbitBuku))).Methods("DELETE")
 	return router
 }
