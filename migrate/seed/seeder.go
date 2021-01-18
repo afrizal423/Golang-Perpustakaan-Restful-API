@@ -5,4 +5,5 @@ func Load() {
 	Seed_JenBuk()
 	Seed_PenBuk()
 	Seed_PubBuk()
+	Seed_Buku()
 }

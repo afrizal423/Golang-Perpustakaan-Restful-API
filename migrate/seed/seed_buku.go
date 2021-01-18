@@ -85,6 +85,65 @@ var PubBuk = []structs.Penerbit_Buku{
 		EmailPenerbit:  "publisher5@test.com",
 	},
 }
+
+var dtbuku = []structs.Buku{
+	structs.Buku{
+		ISBN:            "INIISBNKE1",
+		IDKategoriJenis: 1,
+		Judul:           "Ini buku ke 1",
+		IDPenulisBuku:   1,
+		IDPenerbitBuku:  1,
+		ThnTerbit:       "2020",
+		StokBuku:        10,
+		RakBuku:         "A01",
+		DeskripsiBuku:   "Ini deskripsi kali ya, bagian buku 1",
+	},
+	structs.Buku{
+		ISBN:            "INIISBNKE2",
+		IDKategoriJenis: 2,
+		Judul:           "Ini buku ke 2",
+		IDPenulisBuku:   2,
+		IDPenerbitBuku:  2,
+		ThnTerbit:       "2020",
+		StokBuku:        10,
+		RakBuku:         "A02",
+		DeskripsiBuku:   "Ini deskripsi kali ya, bagian buku 2",
+	},
+	structs.Buku{
+		ISBN:            "INIISBNKE3",
+		IDKategoriJenis: 3,
+		Judul:           "Ini buku ke 3",
+		IDPenulisBuku:   3,
+		IDPenerbitBuku:  3,
+		ThnTerbit:       "2020",
+		StokBuku:        10,
+		RakBuku:         "A03",
+		DeskripsiBuku:   "Ini deskripsi kali ya, bagian buku 3",
+	},
+	structs.Buku{
+		ISBN:            "INIISBNKE4",
+		IDKategoriJenis: 4,
+		Judul:           "Ini buku ke 4",
+		IDPenulisBuku:   4,
+		IDPenerbitBuku:  4,
+		ThnTerbit:       "2020",
+		StokBuku:        10,
+		RakBuku:         "A04",
+		DeskripsiBuku:   "Ini deskripsi kali ya, bagian buku 4",
+	},
+	structs.Buku{
+		ISBN:            "INIISBNKE5",
+		IDKategoriJenis: 5,
+		Judul:           "Ini buku ke 5",
+		IDPenulisBuku:   5,
+		IDPenerbitBuku:  5,
+		ThnTerbit:       "2020",
+		StokBuku:        10,
+		RakBuku:         "A05",
+		DeskripsiBuku:   "Ini deskripsi kali ya, bagian buku 5",
+	},
+}
+
 var db = config.Db
 
 func Seed_JenBuk() {
@@ -111,6 +170,16 @@ func Seed_PubBuk() {
 	// masukkan ke db
 	for i, _ := range PubBuk {
 		err := db.Debug().Model(&structs.Penerbit_Buku{}).Create(&PubBuk[i]).Error
+		if err != nil {
+			log.Fatalf("tidak bisa seed data: %v", err)
+		}
+	}
+}
+
+func Seed_Buku() {
+	// masukkan ke db
+	for i, _ := range PubBuk {
+		err := db.Debug().Model(&structs.Buku{}).Create(&dtbuku[i]).Error
 		if err != nil {
 			log.Fatalf("tidak bisa seed data: %v", err)
 		}
