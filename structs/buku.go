@@ -4,21 +4,21 @@ import "time"
 
 type Buku struct {
 	// gorm.Model
-	IDBuku          uint32          `gorm:"primary_key;auto_increment" json:"id"`
-	ISBN            string          `gorm:"size:255;not null;unique" json:"isbn"`
-	IDKategoriJenis uint32          `gorm:"column:id_kategorinot null;" json:"id_kategori_buku"`
-	KategoriJenis   []Jenis_Buku    `gorm:"foreignKey:IDJenis" json:"kategori_buku"`
-	Judul           string          `gorm:"size:255;not null;" json:"judul_buku"`
-	IDPenulisBuku   uint32          `gorm:"column:id_penulisbuku" json:"id_penulis_buku"`
-	PenulisBuku     []Penulis_Buku  `gorm:"foreignKey:IDPenulis" json:"penulis_buku"`
-	IDPenerbitBuku  uint32          `gorm:"column:id_penerbitbuku" json:"id_penerbit_buku"`
-	PenerbitBuku    []Penerbit_Buku `gorm:"foreignKey:IDPenerbit" json:"penerbit_buku"`
-	ThnTerbit       string          `gorm:"size:255;null;" json:"tahun_terbit"`
-	StokBuku        uint64          `gorm:"type:integer;null;" json:"stok_buku"`
-	RakBuku         string          `gorm:"size:255;null;" json:"rak_buku"`
-	DeskripsiBuku   string          `gorm:"size:255;null;" json:"deskripsi_buku"`
-	CreatedAt       time.Time       `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
-	UpdatedAt       time.Time       `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
+	IDBuku          uint32        `gorm:"primary_key;auto_increment" json:"id_buku"`
+	ISBN            string        `gorm:"size:255;not null;unique" json:"isbn"`
+	IDKategoriJenis uint32        `gorm:"column:id_kategori;not null;" json:"id_kategori_buku"`
+	KategoriJenis   Jenis_Buku    `gorm:"foreignKey:IDJenis;" json:"kategori_buku"`
+	Judul           string        `gorm:"size:255;not null;" json:"judul_buku"`
+	IDPenulisBuku   uint32        `gorm:"column:id_penulisbuku" json:"id_penulis_buku"`
+	PenulisBuku     Penulis_Buku  `gorm:"foreignKey:IDPenulis" json:"penulis_buku"`
+	IDPenerbitBuku  uint32        `gorm:"column:id_penerbitbuku" json:"id_penerbit_buku"`
+	PenerbitBuku    Penerbit_Buku `gorm:"foreignKey:IDPenerbit" json:"penerbit_buku"`
+	ThnTerbit       string        `gorm:"size:255;null;" json:"tahun_terbit"`
+	StokBuku        uint64        `gorm:"type:integer;null;" json:"stok_buku"`
+	RakBuku         string        `gorm:"size:255;null;" json:"rak_buku"`
+	DeskripsiBuku   string        `gorm:"size:255;null;" json:"deskripsi_buku"`
+	CreatedAt       time.Time     `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
+	UpdatedAt       time.Time     `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
 }
 
 type Detail_buku struct {
