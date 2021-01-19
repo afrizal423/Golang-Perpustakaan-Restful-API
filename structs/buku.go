@@ -7,7 +7,7 @@ type Buku struct {
 	IDBuku          uint32        `gorm:"primary_key;auto_increment" json:"id_buku"`
 	ISBN            string        `gorm:"size:255;not null;unique" json:"isbn"`
 	IDKategoriJenis uint32        `gorm:"column:id_kategori;not null;" json:"id_kategori_buku"`
-	KategoriJenis   Jenis_Buku    `gorm:"foreignKey:IDJenis;" json:"kategori_buku"`
+	KategoriJenis   Jenis_Buku    `gorm:"foreignKey:IDKategoriJenis;" json:"kategori_buku"`
 	Judul           string        `gorm:"size:255;not null;column:judul_buku" json:"judul_buku"`
 	IDPenulisBuku   uint32        `gorm:"column:id_penulisbuku" json:"id_penulis_buku"`
 	PenulisBuku     Penulis_Buku  `gorm:"foreignKey:IDPenulis" json:"penulis_buku"`
