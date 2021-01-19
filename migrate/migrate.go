@@ -11,6 +11,6 @@ func MigrateKeDB() {
 		&structs.Penerbit_Buku{}, &structs.Penulis_Buku{}, &structs.Detail_buku{}, &structs.Peminjaman{}, &structs.DetailPinjam{}, &structs.Denda{}) //Drops the table if already exists
 
 	config.Db.AutoMigrate(&models.Pegawai{}, &models.Anggota{}, &structs.Buku{}, &structs.Jenis_Buku{},
-		&structs.Penerbit_Buku{}, &structs.Penulis_Buku{}, &structs.Detail_buku{}, &structs.Peminjaman{}, &structs.DetailPinjam{}, &structs.Denda{})
+		&structs.Penerbit_Buku{}, &structs.Penulis_Buku{}, &structs.Peminjaman{}, &structs.DetailPinjam{}, &structs.Denda{})
 
 }

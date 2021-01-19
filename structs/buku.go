@@ -8,15 +8,17 @@ type Buku struct {
 	ISBN            string        `gorm:"size:255;not null;unique" json:"isbn"`
 	IDKategoriJenis uint32        `gorm:"column:id_kategori;not null;" json:"id_kategori_buku"`
 	KategoriJenis   Jenis_Buku    `gorm:"foreignKey:IDJenis;" json:"kategori_buku"`
-	Judul           string        `gorm:"size:255;not null;" json:"judul_buku"`
+	Judul           string        `gorm:"size:255;not null;column:judul_buku" json:"judul_buku"`
 	IDPenulisBuku   uint32        `gorm:"column:id_penulisbuku" json:"id_penulis_buku"`
 	PenulisBuku     Penulis_Buku  `gorm:"foreignKey:IDPenulis" json:"penulis_buku"`
 	IDPenerbitBuku  uint32        `gorm:"column:id_penerbitbuku" json:"id_penerbit_buku"`
 	PenerbitBuku    Penerbit_Buku `gorm:"foreignKey:IDPenerbit" json:"penerbit_buku"`
-	ThnTerbit       string        `gorm:"size:255;null;" json:"tahun_terbit"`
-	StokBuku        uint64        `gorm:"type:integer;null;" json:"stok_buku"`
-	RakBuku         string        `gorm:"size:255;null;" json:"rak_buku"`
-	DeskripsiBuku   string        `gorm:"size:255;null;" json:"deskripsi_buku"`
+	ThnTerbit       string        `gorm:"size:255;null;column:tahun_terbit" json:"tahun_terbit"`
+	StokBuku        uint64        `gorm:"type:integer;null;column:stok_buku" json:"stok_buku"`
+	RakBuku         string        `gorm:"size:255;null;column:rak_buku" json:"rak_buku"`
+	DeskripsiBuku   string        `gorm:"type:text;null;column:deskripsi_buku" json:"deskripsi_buku"`
+	Gambarbuku      string        `gorm:"size:255;null;column:gambar_buku" json:"gambar_buku"`
+	Kondisibuku     string        `gorm:"size:255;null;column:kondisi_buku" json:"kondisi_buku"`
 	CreatedAt       time.Time     `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdatedAt       time.Time     `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
 }
@@ -28,7 +30,6 @@ type Detail_buku struct {
 	Buku         []Buku `gorm:"foreignKey:IDBuku" json:"buku"`
 	Gambarbuku   string `gorm:"size:255;null;unique" json:"gambar_buku"`
 	Kondisibuku  string `gorm:"size:255;null;unique" json:"kondisi_buku"`
-	Deskripsi    string `gorm:"type:text;null;" json:"deskripsi"`
 }
 type Jenis_Buku struct {
 	// gorm.Model

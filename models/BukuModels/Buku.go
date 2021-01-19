@@ -7,16 +7,21 @@ import (
 
 type Buku struct{ structs.Buku }
 
-func (u *Buku) LihatSemuaBuku(db *gorm.DB) (*[]Buku, error) {
+func (u *Buku) LihatSemuaBuku(db *gorm.DB) (error, *gorm.DB) {
 	var err error
 	book := []Buku{}
 	err = db.Debug().
 		Preload("KategoriJenis").Preload("PenulisBuku").
 		Preload("PenerbitBuku").Find(&book).Error
+
+	query := db.Debug().
+		Preload("KategoriJenis").Preload("PenulisBuku").
+		Preload("PenerbitBuku").Find(&book)
+
 	if err != nil {
-		return &[]Buku{}, err
+		return err, query
 	}
-	return &book, err
+	return err, query
 }
 
 func (u *Buku) DetailBuku(db *gorm.DB, uid uint32) (*Buku, error) {
