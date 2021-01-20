@@ -1,6 +1,8 @@
 package routes
 
 import (
+	"net/http"
+
 	"github.com/afrizal423/Golang-Perpustakaan-Restful-API/controller"
 	"github.com/afrizal423/Golang-Perpustakaan-Restful-API/controller/BukuController"
 	"github.com/afrizal423/Golang-Perpustakaan-Restful-API/middlewares"
@@ -32,6 +34,12 @@ func Router() *mux.Router {
 	router.HandleFunc("/api/penerbitbuku", middlewares.RenderKeJSON(middlewares.HarusAuth(BukuController.HapusPenerbitBuku))).Methods("DELETE")
 
 	router.HandleFunc("/api/buku", middlewares.RenderKeJSON(BukuController.LihatSemuaBuku)).Methods("GET")
+	router.HandleFunc("/api/buku", middlewares.RenderKeJSON(middlewares.HarusAuth(BukuController.TambahBuku))).Methods("POST")
+
+	var imgServer = http.FileServer(http.Dir("./assets/"))
+	router.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", imgServer))
+	// penjelasan serving static file dengan MUX Router ada di link dibawah ini
+	// https://stackoverflow.com/a/43955257/12015288
 
 	return router
 }

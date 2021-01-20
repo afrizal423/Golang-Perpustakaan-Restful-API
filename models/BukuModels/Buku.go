@@ -63,3 +63,13 @@ func (u *Buku) SearchBuku(db *gorm.DB, q string, orderby string) (*[]Buku, *gorm
 	// Preload("KategoriJenis").Preload("PenulisBuku", "penulis_buku LIKE ? OR alamat_penulis LIKE ? OR email_penulis LIKE ?", "%"+q+"%", "%"+q+"%", "%"+q+"%").
 	return &jenbuk, query
 }
+
+func (u *Buku) TambahBuku(db *gorm.DB) (*Buku, error) {
+
+	var err error
+	err = db.Debug().Create(&u).Error
+	if err != nil {
+		return &Buku{}, err
+	}
+	return u, nil
+}

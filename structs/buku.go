@@ -6,15 +6,15 @@ type Buku struct {
 	// gorm.Model
 	IDBuku          uint32        `gorm:"primary_key;auto_increment" json:"id_buku"`
 	ISBN            string        `gorm:"size:255;not null;unique" json:"isbn"`
-	IDKategoriJenis uint32        `gorm:"column:id_kategori;not null;" json:"id_kategori_buku"`
+	IDKategoriJenis int32         `gorm:"column:id_kategori;not null;" json:"id_kategori_buku"`
 	KategoriJenis   Jenis_Buku    `gorm:"foreignKey:IDKategoriJenis;" json:"kategori_buku"`
 	Judul           string        `gorm:"size:255;not null;column:judul_buku" json:"judul_buku"`
-	IDPenulisBuku   uint32        `gorm:"column:id_penulisbuku" json:"id_penulis_buku"`
-	PenulisBuku     Penulis_Buku  `gorm:"foreignKey:IDPenulis" json:"penulis_buku"`
-	IDPenerbitBuku  uint32        `gorm:"column:id_penerbitbuku" json:"id_penerbit_buku"`
-	PenerbitBuku    Penerbit_Buku `gorm:"foreignKey:IDPenerbit" json:"penerbit_buku"`
+	IDPenulisBuku   int32         `gorm:"column:id_penulisbuku" json:"id_penulis_buku"`
+	PenulisBuku     Penulis_Buku  `gorm:"foreignKey:IDPenulisBuku" json:"penulis_buku"`
+	IDPenerbitBuku  int32         `gorm:"column:id_penerbitbuku" json:"id_penerbit_buku"`
+	PenerbitBuku    Penerbit_Buku `gorm:"foreignKey:IDPenerbitBuku" json:"penerbit_buku"`
 	ThnTerbit       string        `gorm:"size:255;null;column:tahun_terbit" json:"tahun_terbit"`
-	StokBuku        uint64        `gorm:"type:integer;null;column:stok_buku" json:"stok_buku"`
+	StokBuku        int32         `gorm:"type:integer;null;column:stok_buku" json:"stok_buku"`
 	RakBuku         string        `gorm:"size:255;null;column:rak_buku" json:"rak_buku"`
 	DeskripsiBuku   string        `gorm:"type:text;null;column:deskripsi_buku" json:"deskripsi_buku"`
 	Gambarbuku      string        `gorm:"size:255;null;column:gambar_buku" json:"gambar_buku"`
