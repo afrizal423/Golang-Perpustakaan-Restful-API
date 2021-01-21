@@ -106,7 +106,38 @@ func TambahBuku(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Header().Set("Location", fmt.Sprintf("%s%s/%d", r.Host, r.RequestURI, tmbhData.IDBuku))
-	responses.JSON(w, http.StatusCreated, tmbhData)
+	responses.JSON(w, http.StatusCreated, responses.Sukses(tmbhData))
+}
+
+func UpdateBuku(w http.ResponseWriter, r *http.Request) {
+	var buku BukuModels.Buku
+	query := r.URL.Query()
+	id, _ := strconv.ParseUint(query.Get("id"), 10, 32)
+	if id == 0 {
+		responses.ERROR(w, http.StatusInternalServerError, fmt.Errorf("URL Invalid"))
+		return
+	}
+	buku.ISBN = r.FormValue("isbn")
+	buku.IDKategoriJenis = int32(helper.StringkeInt(r.FormValue("id_kategori_buku")))
+	buku.Judul = r.FormValue("judul_buku")
+	buku.IDPenulisBuku = int32(helper.StringkeInt(r.FormValue("id_penulis_buku")))
+	buku.IDPenerbitBuku = int32(helper.StringkeInt(r.FormValue("id_penerbit_buku")))
+	buku.ThnTerbit = r.FormValue("tahun_terbit")
+	buku.StokBuku = int32(helper.StringkeInt(r.FormValue("stok_buku")))
+	buku.RakBuku = r.FormValue("rak_buku")
+	buku.DeskripsiBuku = r.FormValue("deskripsi_buku")
+	//gambar disini
+	buku.Gambarbuku = "assets/buku/" + uploadGambar(w, r)
+	//end gambar
+	buku.Kondisibuku = r.FormValue("kondisi_buku")
+
+	updateData, err := buku.UpdateBuku(config.Db, uint32(id))
+	if err != nil {
+		formattedError := formaterror.FormatError(err.Error())
+		responses.ERROR(w, http.StatusInternalServerError, formattedError)
+		return
+	}
+	responses.JSON(w, http.StatusOK, responses.Sukses(updateData))
 }
 
 func uploadGambar(w http.ResponseWriter, r *http.Request) string {
@@ -140,4 +171,21 @@ func uploadGambar(w http.ResponseWriter, r *http.Request) string {
 	fmt.Println(w, "Successfully Uploaded File\n")
 
 	return handler.Filename
+}
+
+func HapusBuku(w http.ResponseWriter, r *http.Request) {
+	var buku BukuModels.Buku
+	query := r.URL.Query()
+	id, _ := strconv.ParseUint(query.Get("id"), 10, 32)
+	if id == 0 {
+		responses.ERROR(w, http.StatusInternalServerError, fmt.Errorf("URL Invalid"))
+		return
+	}
+	_, err := buku.HapusBuku(config.Db, uint32(id))
+	if err != nil {
+		responses.ERROR(w, http.StatusInternalServerError, err)
+		return
+	}
+	// w.Header().Set("Entity", fmt.Sprintf("%d", id))
+	responses.JSON(w, http.StatusOK, responses.Sukses(fmt.Sprintf("Data dengan id %d sukses terhapus ", id)))
 }

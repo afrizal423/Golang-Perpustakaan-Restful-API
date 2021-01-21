@@ -35,7 +35,10 @@ func Router() *mux.Router {
 
 	router.HandleFunc("/api/buku", middlewares.RenderKeJSON(BukuController.LihatSemuaBuku)).Methods("GET")
 	router.HandleFunc("/api/buku", middlewares.RenderKeJSON(middlewares.HarusAuth(BukuController.TambahBuku))).Methods("POST")
+	router.HandleFunc("/api/buku", middlewares.RenderKeJSON(middlewares.HarusAuth(BukuController.UpdateBuku))).Methods("PUT")
+	router.HandleFunc("/api/buku", middlewares.RenderKeJSON(middlewares.HarusAuth(BukuController.HapusBuku))).Methods("DELETE")
 
+	// serving file server
 	var imgServer = http.FileServer(http.Dir("./assets/"))
 	router.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", imgServer))
 	// penjelasan serving static file dengan MUX Router ada di link dibawah ini

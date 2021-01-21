@@ -73,3 +73,47 @@ func (u *Buku) TambahBuku(db *gorm.DB) (*Buku, error) {
 	}
 	return u, nil
 }
+
+func (u *Buku) HapusBuku(db *gorm.DB, uid uint32) (int64, error) {
+
+	db = db.Debug().Model(&Buku{}).Where("id_buku = ?", uid).Take(&Buku{}).Delete(&Buku{})
+
+	if db.Error != nil {
+		return 0, db.Error
+	}
+	return db.RowsAffected, nil
+}
+
+func (u *Buku) UpdateBuku(db *gorm.DB, uid uint32) (*Buku, error) {
+	var err error
+	repBuku := &Buku{}
+
+	db = db.Debug().Model(repBuku).Where("id_buku = ?", uid).Take(repBuku).UpdateColumns(
+		map[string]interface{}{
+			"isbn":            u.ISBN,
+			"id_kategori":     u.IDKategoriJenis,
+			"judul_buku":      u.Judul,
+			"id_penulisbuku":  u.IDPenulisBuku,
+			"id_penerbitbuku": u.IDPenerbitBuku,
+			"tahun_terbit":    u.ThnTerbit,
+			"stok_buku":       u.StokBuku,
+			"rak_buku":        u.RakBuku,
+			"deskripsi_buku":  u.DeskripsiBuku,
+			"gambar_buku":     u.Gambarbuku,
+			"kondisi_buku":    u.Kondisibuku,
+		},
+	)
+
+	if db.Error != nil {
+		return &Buku{}, db.Error
+	}
+	// tampilkan hasil update data
+	err = db.Debug().Model(&Buku{}).
+		Preload("KategoriJenis").Preload("PenulisBuku").
+		Preload("PenerbitBuku").
+		Where("id_buku = ?", uid).Take(&u).Error
+	if err != nil {
+		return &Buku{}, err
+	}
+	return repBuku, nil
+}

@@ -30,5 +30,8 @@ func FormatError(err string) error {
 	if strings.Contains(err, "penerbit_buku") {
 		return errors.New("Penerbit buku sudah terpakai")
 	}
+	if strings.Contains(err, "isbn") {
+		return errors.New("ISBN sudah terpakai")
+	}
 	return errors.New("Incorrect Details")
 }
