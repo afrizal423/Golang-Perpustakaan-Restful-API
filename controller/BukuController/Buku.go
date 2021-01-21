@@ -117,6 +117,13 @@ func UpdateBuku(w http.ResponseWriter, r *http.Request) {
 		responses.ERROR(w, http.StatusInternalServerError, fmt.Errorf("URL Invalid"))
 		return
 	}
+
+	// add logic here
+	// untuk menghapus file lama terlebih dahulu
+	// logic sederhana, kita dapatkan id buku, dapatkan nama file, lalu hapus
+	// problem disini adalah regEx, utk mendapatkan nama file dari string
+	// setelah itu baru upload data baru (seperti kode dibawah)
+
 	buku.ISBN = r.FormValue("isbn")
 	buku.IDKategoriJenis = int32(helper.StringkeInt(r.FormValue("id_kategori_buku")))
 	buku.Judul = r.FormValue("judul_buku")
@@ -181,6 +188,13 @@ func HapusBuku(w http.ResponseWriter, r *http.Request) {
 		responses.ERROR(w, http.StatusInternalServerError, fmt.Errorf("URL Invalid"))
 		return
 	}
+
+	// add logic here
+	// untuk menghapus file lama terlebih dahulu, sebelum hapus dari database
+	// logic sederhana, kita dapatkan id buku, dapatkan nama file, lalu hapus
+	// problem disini adalah regEx, utk mendapatkan nama file dari string
+	// setelah itu baru hapus data di database (seperti kode dibawah)
+
 	_, err := buku.HapusBuku(config.Db, uint32(id))
 	if err != nil {
 		responses.ERROR(w, http.StatusInternalServerError, err)
