@@ -41,10 +41,9 @@ func LihatSemuaBuku(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var tmpbuku []BukuModels.Buku
-	halaman, _ := strconv.ParseUint(query.Get("page"), 10, 32)
 	paginator := pagination.Paging(&pagination.Param{
 		DB:    querydb,
-		Page:  int(halaman),
+		Page:  int(helper.StringkeInt(query.Get("page"))),
 		Limit: 3,
 		// OrderBy: []string{"id desc"},
 	}, &tmpbuku)
@@ -58,12 +57,11 @@ func cariBuku(w http.ResponseWriter, r *http.Request) {
 		kata := helper.NonLatinChar(query.Get("q"))[0]
 		orderby := helper.NonLatinChar(query.Get("orderby"))[0]
 		_, data := buku.SearchBuku(config.Db, kata, orderby)
-		halaman, _ := strconv.ParseUint(query.Get("page"), 10, 32)
 
 		var bukus []BukuModels.Buku
 		paginator := pagination.Paging(&pagination.Param{
 			DB:    data,
-			Page:  int(halaman),
+			Page:  int(helper.StringkeInt(query.Get("page"))),
 			Limit: 3,
 			// OrderBy: []string{"id desc"},
 		}, &bukus)
