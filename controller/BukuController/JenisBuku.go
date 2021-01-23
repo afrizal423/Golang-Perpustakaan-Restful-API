@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/afrizal423/Golang-Perpustakaan-Restful-API/config"
+	"github.com/afrizal423/Golang-Perpustakaan-Restful-API/config/helper"
 	"github.com/afrizal423/Golang-Perpustakaan-Restful-API/models/BukuModels"
 	"github.com/afrizal423/Golang-Perpustakaan-Restful-API/responses"
 	"github.com/afrizal423/Golang-Perpustakaan-Restful-API/responses/formaterror"
@@ -37,21 +38,19 @@ func LihatJenisBuku(w http.ResponseWriter, r *http.Request) {
 	if query.Get("q") != "" {
 		// fmt.Println(query.Get("q"))
 		_, bukus := buku.CariJenisBuku(config.Db, query.Get("q"))
-		halaman, _ := strconv.ParseUint(query.Get("page"), 10, 32)
 		var buku []BukuModels.JenisBuku
 		paginator := pagination.Paging(&pagination.Param{
 			DB:    bukus,
-			Page:  int(halaman),
+			Page:  int(helper.StringkeInt(query.Get("page"))),
 			Limit: 3,
 			// OrderBy: []string{"id desc"},
 		}, &buku)
 		responses.JSON(w, http.StatusOK, responses.Sukses(paginator))
 		return
 	}
-	halaman, _ := strconv.ParseUint(query.Get("page"), 10, 32)
 	paginator := pagination.Paging(&pagination.Param{
 		DB:    config.Db,
-		Page:  int(halaman),
+		Page:  int(helper.StringkeInt(query.Get("page"))),
 		Limit: 3,
 		// OrderBy: []string{"id desc"},
 	}, &bukus)
