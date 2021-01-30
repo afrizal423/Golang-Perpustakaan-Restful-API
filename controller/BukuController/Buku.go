@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"regexp"
 	"strconv"
 
 	"github.com/afrizal423/Golang-Perpustakaan-Restful-API/config/helper"
@@ -116,11 +117,8 @@ func UpdateBuku(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// add logic here
-	// untuk menghapus file lama terlebih dahulu
-	// logic sederhana, kita dapatkan id buku, dapatkan nama file, lalu hapus
-	// problem disini adalah regEx, utk mendapatkan nama file dari string
-	// setelah itu baru upload data baru (seperti kode dibawah)
+	// hapus gambar terlebih dahulu
+	hapusGambar(uint32(id), w)
 
 	buku.ISBN = r.FormValue("isbn")
 	buku.IDKategoriJenis = int32(helper.StringkeInt(r.FormValue("id_kategori_buku")))
@@ -143,6 +141,21 @@ func UpdateBuku(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	responses.JSON(w, http.StatusOK, responses.Sukses(updateData))
+}
+
+func hapusGambar(id uint32, w http.ResponseWriter) {
+	buku := BukuModels.Buku{}
+	bukus, err := buku.DetailBuku(config.Db, uint32(id))
+	if err != nil {
+		responses.ERROR(w, http.StatusInternalServerError, err)
+		return
+	}
+	r, _ := regexp.Compile("^assets/buku/*")
+	namafile := r.ReplaceAllString(bukus.Gambarbuku, "")
+	os.Remove("assets/buku/" + namafile)
+	// fmt.Println()
+	// fmt.Println(bukus.Gambarbuku)
+
 }
 
 func uploadGambar(w http.ResponseWriter, r *http.Request) string {
@@ -187,11 +200,8 @@ func HapusBuku(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// add logic here
-	// untuk menghapus file lama terlebih dahulu, sebelum hapus dari database
-	// logic sederhana, kita dapatkan id buku, dapatkan nama file, lalu hapus
-	// problem disini adalah regEx, utk mendapatkan nama file dari string
-	// setelah itu baru hapus data di database (seperti kode dibawah)
+	// hapus gambar terlebih dahulu
+	hapusGambar(uint32(id), w)
 
 	_, err := buku.HapusBuku(config.Db, uint32(id))
 	if err != nil {
