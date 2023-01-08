@@ -2,7 +2,7 @@
 بِسْــــــــــــــمِ اللَّهِ الرَّحْمَنِ الرَّحِيم 
 </p>
 
-> ⚠️ **Projek ini masih dalam proses pengembangan ulang dengan menulis ulang kode menggunakan arsitektur [_hexagonal_](https://www.mohitkhare.com/blog/hexagonal-architecture/), serta menggunakan framework [Fiber](https://gofiber.io/).**
+> ⚠️ **Projek ini masih dalam proses pengembangan ulang dengan menulis ulang kode menggunakan arsitektur [_hexagonal_](https://blog.octo.com/en/hexagonal-architecture-three-principles-and-an-implementation-example/), serta menggunakan framework [Fiber](https://gofiber.io/).**
 **Jika ingin melihat kode sebelumnya bisa melihat [commit ini](https://github.com/afrizal423/Golang-Perpustakaan-Restful-API/tree/d451e99fd6cdb506accd16b969ffc901dfc81dac).** 
 
 # Sistem Informasi Perpustakaan Berbasis Rest API
@@ -14,7 +14,7 @@ Project sederhana membuat Sistem Informasi Perpustakaan berbasis Restful API men
 - Siswa  <i>(soon)</i> 
 
 ### ToDo List Pengerjaan Project :pushpin:
-- [ ] Create Migration table
+- [x] Create Migration table
 - [ ] Create Seed data akun admin
 - [ ] Register siswa
 - [ ] Login With JWT
