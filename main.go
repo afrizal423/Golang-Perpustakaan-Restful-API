@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	db := configs.MySQLConn()
-	database.Migrate(db)
-	database.Seeder(db)
+	configs.MySQLConn()
+	database.Migrate()
+	// database.Seeder(db)
 }

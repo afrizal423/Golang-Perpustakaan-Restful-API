@@ -4,7 +4,7 @@ import "time"
 
 type Buku struct {
 	// gorm.Model
-	IDBuku          string        `gorm:"primary_key;size:26;not null;" json:"id_buku"`
+	IDBuku          string        `gorm:"primary_key;size:26;not null;column:id_buku;" json:"id_buku"`
 	ISBN            string        `gorm:"size:255;not null;unique" json:"isbn"`
 	IDKategoriJenis string        `gorm:"column:id_kategori;not null;size:26;" json:"id_kategori_buku"`
 	KategoriJenis   Jenis_Buku    `gorm:"foreignKey:IDKategoriJenis;" json:"kategori_buku"`

@@ -36,10 +36,10 @@ type Denda struct {
 	Tglpinjam        time.Time  `json:"tgl_pinjam"`
 	Tglhrskembali    time.Time  `json:"tgl_hrskembali"`
 	Tglkembali       time.Time  `json:"tgl_kembali"`
-	IDPeminjaman     string     `gorm:"column:id_peminjaman;size:26" json:"id_peminjaman"`
-	IDKodePeminjaman Peminjaman `gorm:"foreignKey:IDPeminjaman;references:id_peminjaman" json:"peminjaman"`
-	IDAnggota        string     `gorm:"column:id_anggota;size:26;" json:"id_anggota"`
-	Anggota          Anggota    `gorm:"foreignKey:IDAnggota;references:id_anggota" json:"anggota"`
+	IDPeminjaman     string     `gorm:"column:id_peminjaman;size:26;not null;" json:"id_peminjaman"`
+	IDKodePeminjaman Peminjaman `gorm:"foreignKey:IDPeminjaman;not null;" json:"peminjaman"`
+	IDAnggota        string     `gorm:"column:id_anggota;size:26;not null;" json:"id_anggota"`
+	Anggota          Anggota    `gorm:"foreignKey:IDAnggota;not null;" json:"anggota"`
 
 	CreatedAt time.Time `gorm:"not null;" json:"created_at"`
 	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
