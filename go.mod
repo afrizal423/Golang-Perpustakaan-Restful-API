@@ -10,6 +10,7 @@ require (
 )
 
 require (
+	github.com/alexedwards/argon2id v0.0.0-20211130144151-3585854a6387 // indirect
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/gofiber/jwt/v3 v3.3.4 // indirect
@@ -24,5 +25,6 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.43.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
+	golang.org/x/crypto v0.5.0 // indirect
 	golang.org/x/sys v0.4.0 // indirect
 )
