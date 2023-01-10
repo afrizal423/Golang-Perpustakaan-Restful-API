@@ -1,4 +1,4 @@
-package user
+package user_request
 
 type AnggotaLoginRequest struct {
 	Username string `json:"username"`

@@ -15,9 +15,9 @@ func NewUserRepository(db *gorm.DB) *UserRepository {
 	}
 }
 
-func (q *UserRepository) Login(email string, password string) (*models.Anggota, error) {
-	var data models.Anggota
-	if err := q.db.Where("email = ?", email).Where("password = ?", password).First(&data).Error; err != nil {
+func (q *UserRepository) GetDataByUsername(username string) (*models.Pegawai, error) {
+	var data models.Pegawai
+	if err := q.db.Where("username = ?", username).First(&data).Error; err != nil {
 		return nil, err
 	}
 	return &data, nil
