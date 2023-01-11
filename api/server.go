@@ -1,11 +1,15 @@
 package api
 
 import (
+	"github.com/afrizal423/Golang-Perpustakaan-Restful-API/api/v1/buku"
 	"github.com/afrizal423/Golang-Perpustakaan-Restful-API/api/v1/user"
 	"github.com/gofiber/fiber/v2"
 )
 
-func RegisterPath(f *fiber.App, userCon *user.Controller) {
+func RegisterPath(f *fiber.App,
+	userCon *user.Controller,
+	bukuCon *buku.Controller) {
+
 	route := f.Group("/api")
 	v1 := route.Group("/v1")
 
