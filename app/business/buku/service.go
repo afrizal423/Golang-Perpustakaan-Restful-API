@@ -13,9 +13,8 @@ func NewBukuService(repository IBukuRepository) IBukuRepository {
 }
 
 func (s *bukuService) CreateJenisBuku(data models.Jenis_Buku) error {
-	// diaryById, err := s.repository.GetDiaryById(id)
-	// if err != nil {
-	// 	return nil, err
-	// }
+	if err := s.repository.CreateJenisBuku(data); err != nil {
+		return err
+	}
 	return nil
 }
