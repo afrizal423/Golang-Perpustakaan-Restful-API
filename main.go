@@ -2,11 +2,12 @@ package main
 
 import (
 	"github.com/afrizal423/Golang-Perpustakaan-Restful-API/api"
-	"github.com/afrizal423/Golang-Perpustakaan-Restful-API/api/v1/buku"
+
 	userController "github.com/afrizal423/Golang-Perpustakaan-Restful-API/api/v1/user"
 	userService "github.com/afrizal423/Golang-Perpustakaan-Restful-API/app/business/user"
 	userRepository "github.com/afrizal423/Golang-Perpustakaan-Restful-API/app/repository/user"
 
+	bukuController "github.com/afrizal423/Golang-Perpustakaan-Restful-API/api/v1/buku"
 	bukuService "github.com/afrizal423/Golang-Perpustakaan-Restful-API/app/business/buku"
 	bukuRepository "github.com/afrizal423/Golang-Perpustakaan-Restful-API/app/repository/buku"
 
@@ -25,7 +26,7 @@ func main() {
 
 	bukuRepo := bukuRepository.NewBukuRepository(db)
 	bukuServices := bukuService.NewBukuService(bukuRepo)
-	bukuCon := buku.NewBukuController(bukuServices)
+	bukuCon := bukuController.NewBukuController(bukuServices)
 
 	config := configs.ServerTimeOut()
 	app := fiber.New(config)
