@@ -28,9 +28,20 @@ func (q *UserRepository) GetAllJenisBuku() ([]models.Jenis_Buku, error) {
 	return result, nil
 }
 
+func (q *UserRepository) CariJenisBuku(c string) ([]models.Jenis_Buku, error) {
+	var data, result []models.Jenis_Buku
+	if err := q.db.Where("jenis_buku LIKE ? OR deskripsi LIKE ?", "%"+c+"%", "%"+c+"%").Find(&data).Error; err != nil {
+		return nil, err
+	}
+	for _, v := range data {
+		result = append(result, v)
+	}
+	return result, nil
+}
+
 func (q *UserRepository) GetJenisBukuById(id string) (*models.Jenis_Buku, error) {
 	var data models.Jenis_Buku
-	if err := q.db.Debug().First(&data, "id_jenis = ?", id).Error; err != nil {
+	if err := q.db.First(&data, "id_jenis = ?", id).Error; err != nil {
 		return nil, err
 	}
 	return &data, nil

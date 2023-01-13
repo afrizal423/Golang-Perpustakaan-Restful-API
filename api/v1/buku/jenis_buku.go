@@ -11,25 +11,37 @@ import (
 )
 
 func (c *Controller) GetAllJenisBuku(f *fiber.Ctx) error {
-	diary, err := c.service.GetAllJenisBuku()
+	cari := f.Query("q")
+	if cari != "" {
+		data, err := c.service.FindJenisBuku(cari)
+		if err != nil {
+			return f.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": true,
+				"msg":   err.Error(),
+			})
+		}
+		return f.Status(fiber.StatusOK).JSON(data)
+
+	}
+	data, err := c.service.GetAllJenisBuku()
 	if err != nil {
 		return f.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error": true,
 			"msg":   err.Error(),
 		})
 	}
-	return f.Status(fiber.StatusOK).JSON(diary)
+	return f.Status(fiber.StatusOK).JSON(data)
 }
 
 func (c *Controller) GetJenisBukuById(f *fiber.Ctx) error {
-	diary, err := c.service.GetJenisBukuById(html.EscapeString(strings.TrimSpace(f.Params("id"))))
+	data, err := c.service.GetJenisBukuById(html.EscapeString(strings.TrimSpace(f.Params("id"))))
 	if err != nil {
 		return f.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error": true,
 			"msg":   err.Error(),
 		})
 	}
-	response := buku_response.GetJenisBukuByIdResponse(diary)
+	response := buku_response.GetJenisBukuByIdResponse(data)
 	return f.Status(fiber.StatusOK).JSON(response)
 }
 

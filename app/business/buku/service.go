@@ -2,7 +2,6 @@ package buku
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/afrizal423/Golang-Perpustakaan-Restful-API/app/models"
 )
@@ -22,7 +21,14 @@ func (s *bukuService) GetAllJenisBuku() ([]models.Jenis_Buku, error) {
 	if err != nil {
 		return []models.Jenis_Buku{}, nil
 	}
-	fmt.Println(data)
+	return data, nil
+}
+
+func (s *bukuService) FindJenisBuku(c string) ([]models.Jenis_Buku, error) {
+	data, err := s.repository.CariJenisBuku(c)
+	if err != nil {
+		return []models.Jenis_Buku{}, nil
+	}
 	return data, nil
 }
 

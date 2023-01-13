@@ -4,6 +4,7 @@ import "github.com/afrizal423/Golang-Perpustakaan-Restful-API/app/models"
 
 type IBukuService interface {
 	GetAllJenisBuku() ([]models.Jenis_Buku, error)
+	FindJenisBuku(c string) ([]models.Jenis_Buku, error)
 	GetJenisBukuById(id string) (*models.Jenis_Buku, error)
 	CreateJenisBuku(data models.Jenis_Buku) error
 	UpdateJenisBuku(data models.Jenis_Buku) error
@@ -12,6 +13,7 @@ type IBukuService interface {
 
 type IBukuRepository interface {
 	GetAllJenisBuku() ([]models.Jenis_Buku, error)
+	CariJenisBuku(c string) ([]models.Jenis_Buku, error)
 	GetJenisBukuById(id string) (*models.Jenis_Buku, error)
 	CreateJenisBuku(data models.Jenis_Buku) error
 	UpdateJenisBuku(data models.Jenis_Buku) error
