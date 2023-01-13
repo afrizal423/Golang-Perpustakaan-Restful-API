@@ -32,6 +32,7 @@ func RegisterPath(f *fiber.App,
 
 	//jenis buku route
 	jenBuk := bukuRoute.Group("/jenbuk")
+	jenBuk.Get("/", bukuCon.GetAllJenisBuku)
 	jenBuk.Get("/:id", bukuCon.GetJenisBukuById)
 	jenBuk.Post("create", bukuCon.CreateJenisBuku)
 	jenBuk.Post("update", bukuCon.UpdateJenisBuku)

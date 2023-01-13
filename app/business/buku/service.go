@@ -2,6 +2,7 @@ package buku
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/afrizal423/Golang-Perpustakaan-Restful-API/app/models"
 )
@@ -14,6 +15,15 @@ func NewBukuService(repository IBukuRepository) IBukuService {
 	return &bukuService{
 		repository,
 	}
+}
+
+func (s *bukuService) GetAllJenisBuku() ([]models.Jenis_Buku, error) {
+	data, err := s.repository.GetAllJenisBuku()
+	if err != nil {
+		return []models.Jenis_Buku{}, nil
+	}
+	fmt.Println(data)
+	return data, nil
 }
 
 func (s *bukuService) GetJenisBukuById(id string) (*models.Jenis_Buku, error) {

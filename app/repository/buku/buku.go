@@ -17,6 +17,17 @@ func NewBukuRepository(db *gorm.DB) *UserRepository {
 	}
 }
 
+func (q *UserRepository) GetAllJenisBuku() ([]models.Jenis_Buku, error) {
+	var data, result []models.Jenis_Buku
+	if err := q.db.Find(&data).Error; err != nil {
+		return nil, err
+	}
+	for _, v := range data {
+		result = append(result, v)
+	}
+	return result, nil
+}
+
 func (q *UserRepository) GetJenisBukuById(id string) (*models.Jenis_Buku, error) {
 	var data models.Jenis_Buku
 	if err := q.db.Debug().First(&data, "id_jenis = ?", id).Error; err != nil {

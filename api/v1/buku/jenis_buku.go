@@ -10,6 +10,17 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+func (c *Controller) GetAllJenisBuku(f *fiber.Ctx) error {
+	diary, err := c.service.GetAllJenisBuku()
+	if err != nil {
+		return f.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": true,
+			"msg":   err.Error(),
+		})
+	}
+	return f.Status(fiber.StatusOK).JSON(diary)
+}
+
 func (c *Controller) GetJenisBukuById(f *fiber.Ctx) error {
 	diary, err := c.service.GetJenisBukuById(html.EscapeString(strings.TrimSpace(f.Params("id"))))
 	if err != nil {
