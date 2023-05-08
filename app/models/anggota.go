@@ -3,7 +3,7 @@ package models
 import "time"
 
 type Anggota struct {
-	IDAnggota uint32    `gorm:"primary_key;auto_increment" json:"id"`
+	IDAnggota string    `gorm:"primary_key;size:26;not null;" json:"id_anggota"`
 	Username  string    `gorm:"size:255;not null;unique" json:"username"`
 	Password  string    `gorm:"size:100;not null;" json:"password"`
 	Nama      string    `gorm:"size:255;not null;" json:"nama"`

@@ -2,26 +2,16 @@ package models
 
 import "time"
 
-type Detail_buku struct {
-	// gorm.Model
-	IDDetailBuku uint32    `gorm:"primary_key;auto_increment" json:"id"`
-	IDBuku       uint32    `gorm:"column:id_buku" json:"id_buku"`
-	Buku         []Buku    `gorm:"foreignKey:IDBuku" json:"buku"`
-	Gambarbuku   string    `gorm:"size:255;null;unique" json:"gambar_buku"`
-	Kondisibuku  string    `gorm:"size:255;null;unique" json:"kondisi_buku"`
-	UpdatedAt    time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
-}
-
 type Buku struct {
 	// gorm.Model
-	IDBuku          uint32        `gorm:"primary_key;auto_increment" json:"id_buku"`
+	IDBuku          string        `gorm:"primary_key;size:26;not null;column:id_buku;" json:"id_buku"`
 	ISBN            string        `gorm:"size:255;not null;unique" json:"isbn"`
-	IDKategoriJenis int32         `gorm:"column:id_kategori;not null;" json:"id_kategori_buku"`
+	IDKategoriJenis string        `gorm:"column:id_kategori;not null;size:26;" json:"id_kategori_buku"`
 	KategoriJenis   Jenis_Buku    `gorm:"foreignKey:IDKategoriJenis;" json:"kategori_buku"`
 	Judul           string        `gorm:"size:255;not null;column:judul_buku" json:"judul_buku"`
-	IDPenulisBuku   int32         `gorm:"column:id_penulisbuku" json:"id_penulis_buku"`
+	IDPenulisBuku   string        `gorm:"column:id_penulisbuku;size:26;" json:"id_penulis_buku"`
 	PenulisBuku     Penulis_Buku  `gorm:"foreignKey:IDPenulisBuku" json:"penulis_buku"`
-	IDPenerbitBuku  int32         `gorm:"column:id_penerbitbuku" json:"id_penerbit_buku"`
+	IDPenerbitBuku  string        `gorm:"column:id_penerbitbuku;size:26;" json:"id_penerbit_buku"`
 	PenerbitBuku    Penerbit_Buku `gorm:"foreignKey:IDPenerbitBuku" json:"penerbit_buku"`
 	ThnTerbit       string        `gorm:"size:255;null;column:tahun_terbit" json:"tahun_terbit"`
 	StokBuku        int32         `gorm:"type:integer;null;column:stok_buku" json:"stok_buku"`
@@ -35,7 +25,7 @@ type Buku struct {
 
 type Jenis_Buku struct {
 	// gorm.Model
-	IDJenis   uint32    `gorm:"primary_key;auto_increment" json:"id"`
+	IDJenis   string    `gorm:"primary_key;size:26;not null;" json:"id"`
 	JenisBuku string    `gorm:"size:255;not null;unique" json:"jenis_buku"`
 	Deskripsi string    `gorm:"type:text;null;" json:"deskripsi"`
 	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
@@ -43,7 +33,7 @@ type Jenis_Buku struct {
 
 type Penulis_Buku struct {
 	// gorm.Model
-	IDPenulis     uint32    `gorm:"primary_key;auto_increment" json:"id"`
+	IDPenulis     string    `gorm:"primary_key;size:26;not null;" json:"id"`
 	PenulisBuku   string    `gorm:"size:255;not null;unique" json:"penulis_buku"`
 	AlamatPenulis string    `gorm:"size:255;null;" json:"alamat"`
 	EmailPenulis  string    `gorm:"size:255;null;unique" json:"email_penulis"`
@@ -53,7 +43,7 @@ type Penulis_Buku struct {
 
 type Penerbit_Buku struct {
 	// gorm.Model
-	IDPenerbit     uint32    `gorm:"primary_key;auto_increment" json:"id"`
+	IDPenerbit     string    `gorm:"primary_key;size:26;not null;" json:"id"`
 	PenerbitBuku   string    `gorm:"size:255;not null;unique" json:"penerbit_buku"`
 	AlamatPenerbit string    `gorm:"size:255;null" json:"alamat_penerbit"`
 	TelpPenerbit   string    `gorm:"size:255;null" json:"telp_penerbit"`
