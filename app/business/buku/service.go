@@ -40,21 +40,24 @@ func (s *bukuService) GetJenisBukuById(id string) (*models.Jenis_Buku, error) {
 	return JenisBukuById, nil
 }
 
-func (s *bukuService) CreateJenisBuku(data models.Jenis_Buku) error {
-	if err := s.repository.CreateJenisBuku(data); err != nil {
-		return err
+func (s *bukuService) CreateJenisBuku(data models.Jenis_Buku) (models.Jenis_Buku, error) {
+	var jb models.Jenis_Buku
+	data, err := s.repository.CreateJenisBuku(data)
+	if err != nil {
+		return jb, err
 	}
-	return nil
+	return data, nil
 }
 
-func (s *bukuService) UpdateJenisBuku(data models.Jenis_Buku) error {
+func (s *bukuService) UpdateJenisBuku(data models.Jenis_Buku) (models.Jenis_Buku, error) {
 	if s.repository.HitungDataJenisBuku(data.IDJenis) == 0 {
-		return errors.New("data kosong")
+		return models.Jenis_Buku{}, errors.New("data kosong")
 	}
-	if err := s.repository.UpdateJenisBuku(data); err != nil {
-		return err
+	data, err := s.repository.UpdateJenisBuku(data)
+	if err != nil {
+		return models.Jenis_Buku{}, err
 	}
-	return nil
+	return data, nil
 }
 
 func (s *bukuService) HapusJenisBuku(id string) error {

@@ -19,7 +19,7 @@ type dataDetailJenisBuku struct {
 
 func GetJenisBukuByIdResponse(data *models.Jenis_Buku) GetJenisBukuById {
 	var dt GetJenisBukuById
-	dt.Status = "sukses"
+	dt.Status = "Success get data buku"
 	dt.Data.IDJenis = data.IDJenis
 	dt.Data.JenisBuku = data.JenisBuku
 	dt.Data.Deskripsi = data.Deskripsi
