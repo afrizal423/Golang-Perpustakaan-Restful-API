@@ -11,6 +11,7 @@ type IBukuService interface {
 	HapusJenisBuku(id string) error
 }
 
+//go:generate mockery --name IBukuRepository
 type IBukuRepository interface {
 	GetAllJenisBuku() ([]models.Jenis_Buku, error)
 	CariJenisBuku(c string) ([]models.Jenis_Buku, error)
