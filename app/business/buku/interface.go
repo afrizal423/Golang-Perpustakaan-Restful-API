@@ -13,6 +13,8 @@ type IBukuService interface {
 
 //go:generate mockery --name IBukuRepository
 type IBukuRepository interface {
+	// jenis buku
+
 	GetAllJenisBuku() ([]models.Jenis_Buku, error)
 	CariJenisBuku(c string) ([]models.Jenis_Buku, error)
 	GetJenisBukuById(id string) (*models.Jenis_Buku, error)
@@ -20,4 +22,14 @@ type IBukuRepository interface {
 	UpdateJenisBuku(data models.Jenis_Buku) (models.Jenis_Buku, error)
 	DeleteJenisBuku(id string) error
 	HitungDataJenisBuku(id string) int64
+
+	// penerbit buku
+
+	GetAllPenerbitBuku() ([]models.Penerbit_Buku, error)
+	CariPenerbitBuku(c string) ([]models.Penerbit_Buku, error)
+	GetPenerbitBukuById(id string) (*models.Penerbit_Buku, error)
+	CreatePenerbitBuku(data models.Penerbit_Buku) (models.Penerbit_Buku, error)
+	UpdatePenerbitBuku(data models.Penerbit_Buku) (models.Penerbit_Buku, error)
+	DeletePenerbitBuku(id string) error
+	HitungDataPenerbitBuku(id string) int64
 }
