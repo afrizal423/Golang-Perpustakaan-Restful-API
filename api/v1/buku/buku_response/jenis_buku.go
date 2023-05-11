@@ -7,21 +7,13 @@ var (
 )
 
 type GetJenisBukuById struct {
-	Status string              `json:"status"`
-	Data   dataDetailJenisBuku `json:"data"`
-}
-
-type dataDetailJenisBuku struct {
-	IDJenis   string `json:"id"`
-	JenisBuku string `json:"jenis_buku"`
-	Deskripsi string `json:"deskripsi"`
+	Status string             `json:"status"`
+	Data   *models.Jenis_Buku `json:"data"`
 }
 
 func GetJenisBukuByIdResponse(data *models.Jenis_Buku) GetJenisBukuById {
 	var dt GetJenisBukuById
 	dt.Status = "Success get data buku"
-	dt.Data.IDJenis = data.IDJenis
-	dt.Data.JenisBuku = data.JenisBuku
-	dt.Data.Deskripsi = data.Deskripsi
+	dt.Data = data
 	return dt
 }

@@ -35,8 +35,17 @@ func RegisterPath(f *fiber.App,
 	jenBuk.Get("/", bukuCon.GetAllJenisBuku)
 	jenBuk.Get("/:id", bukuCon.GetJenisBukuById)
 	jenBuk.Post("create", bukuCon.CreateJenisBuku)
-	jenBuk.Post("update", bukuCon.UpdateJenisBuku)
+	jenBuk.Put("update", bukuCon.UpdateJenisBuku)
 	jenBuk.Delete("delete", bukuCon.DeleteJenisBuku)
+	// end jenis buku
 
+	// penerbit buku area
+	penbuk := bukuRoute.Group("/penbuk")
+	penbuk.Get("/", bukuCon.GetAllPenerbitBuku)
+	penbuk.Get("/:id", bukuCon.GetPenerbitBukuById)
+	penbuk.Post("create", bukuCon.CreatePenerbitBuku)
+	penbuk.Put("update", bukuCon.UpdatePenerbitBuku)
+	penbuk.Delete("delete", bukuCon.DeletePenerbitBuku)
+	// end penerbit buku
 	//end buku area
 }

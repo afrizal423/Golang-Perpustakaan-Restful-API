@@ -12,17 +12,17 @@ func (s *BukuService) CreatePenerbitBuku(data models.Penerbit_Buku) (models.Pene
 
 	// validasi inputan nama penerbit
 	if len(data.PenerbitBuku) <= 5 || len(data.PenerbitBuku) >= 255 {
-		return models.Penerbit_Buku{}, errors.New("inputan minimal 5 karakter dan maksimal 255")
+		return models.Penerbit_Buku{}, errors.New("inputan nama penerbit buku minimal 5 karakter dan maksimal 255")
 	}
 
 	// validasi inputan alamat penerbit
 	if len(data.AlamatPenerbit) <= 5 || len(data.AlamatPenerbit) >= 255 {
-		return models.Penerbit_Buku{}, errors.New("inputan minimal 5 karakter dan maksimal 255")
+		return models.Penerbit_Buku{}, errors.New("inputan alamat penerbit minimal 5 karakter dan maksimal 255")
 	}
 
 	// validasi inputan telp penerbit
-	if len(data.AlamatPenerbit) <= 5 {
-		return models.Penerbit_Buku{}, errors.New("inputan minimal 5 karakter nomor telp")
+	if len(data.TelpPenerbit) <= 5 {
+		return models.Penerbit_Buku{}, errors.New("inputan telp penerbit minimal 5 karakter nomor telp")
 	}
 
 	// validasi inputan email penerbit
@@ -33,8 +33,8 @@ func (s *BukuService) CreatePenerbitBuku(data models.Penerbit_Buku) (models.Pene
 	}
 
 	// validasi inputan Deskripsi penerbit
-	if len(data.AlamatPenerbit) <= 5 || len(data.AlamatPenerbit) >= 255 {
-		return models.Penerbit_Buku{}, errors.New("inputan minimal 5 karakter dan maksimal 255")
+	if len(data.Deskripsi) <= 5 || len(data.Deskripsi) >= 255 {
+		return models.Penerbit_Buku{}, errors.New("inputan Deskripsi penerbit minimal 5 karakter dan maksimal 255")
 	}
 	// end validation
 
@@ -82,6 +82,34 @@ func (s *BukuService) UpdatePenerbitBuku(data models.Penerbit_Buku) (models.Pene
 	if s.Repository.HitungDataPenerbitBuku(data.IDPenerbit) == 0 {
 		return models.Penerbit_Buku{}, errors.New("data kosong")
 	}
+	// validasi inputan nama penerbit
+	if len(data.PenerbitBuku) <= 5 || len(data.PenerbitBuku) >= 255 {
+		return models.Penerbit_Buku{}, errors.New("inputan nama penerbit buku minimal 5 karakter dan maksimal 255")
+	}
+
+	// validasi inputan alamat penerbit
+	if len(data.AlamatPenerbit) <= 5 || len(data.AlamatPenerbit) >= 255 {
+		return models.Penerbit_Buku{}, errors.New("inputan alamat penerbit minimal 5 karakter dan maksimal 255")
+	}
+
+	// validasi inputan telp penerbit
+	if len(data.TelpPenerbit) <= 5 {
+		return models.Penerbit_Buku{}, errors.New("inputan telp penerbit minimal 5 karakter nomor telp")
+	}
+
+	// validasi inputan email penerbit
+	match, _ := regexp.MatchString("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", data.EmailPenerbit)
+
+	if !match {
+		return models.Penerbit_Buku{}, errors.New("bukan format email")
+	}
+
+	// validasi inputan Deskripsi penerbit
+	if len(data.Deskripsi) <= 5 || len(data.Deskripsi) >= 255 {
+		return models.Penerbit_Buku{}, errors.New("inputan Deskripsi penerbit minimal 5 karakter dan maksimal 255")
+	}
+	// end validation
+
 	data, err := s.Repository.UpdatePenerbitBuku(data)
 	if err != nil {
 		return models.Penerbit_Buku{}, err

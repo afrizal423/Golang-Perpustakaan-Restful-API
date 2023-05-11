@@ -55,7 +55,7 @@ func (q *BukuRepository) DeletePenerbitBuku(id string) error {
 	return nil
 }
 
-func (q *BukuRepository) HitungDataPenulisBuku(id string) int64 {
+func (q *BukuRepository) HitungDataPenerbitBuku(id string) int64 {
 	var count int64
 	if err := q.db.Model(&models.Penerbit_Buku{}).Where("id_penerbit = ?", id).Count(&count).Error; err != nil {
 		log.Println(err)

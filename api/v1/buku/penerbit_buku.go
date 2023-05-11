@@ -10,7 +10,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func (c *Controller) GetAllJenisBuku(f *fiber.Ctx) error {
+func (c *Controller) GetAllPenerbitBuku(f *fiber.Ctx) error {
+	// for pagination
 	// params := utils.GetAllQueryParams(f)
 	// fmt.Println("Query Params: ")
 	// for key, value := range params {
@@ -18,7 +19,7 @@ func (c *Controller) GetAllJenisBuku(f *fiber.Ctx) error {
 	// }
 	cari := f.Query("q")
 	if cari != "" {
-		data, err := c.service.FindJenisBuku(cari)
+		data, err := c.service.FindPenerbitBuku(cari)
 		if err != nil {
 			return f.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 				"error": true,
@@ -27,39 +28,35 @@ func (c *Controller) GetAllJenisBuku(f *fiber.Ctx) error {
 		}
 		return f.Status(fiber.StatusOK).JSON(fiber.Map{
 			"error": false,
-			"msg":   "Success get data jenis buku",
+			"msg":   "Success get data penerbit buku",
 			"data":  data,
 		})
 
 	}
-	data, err := c.service.GetAllJenisBuku()
+	data, err := c.service.GetAllPenerbitBuku()
 	if err != nil {
 		return f.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error": true,
 			"msg":   err.Error(),
 		})
 	}
-	return f.Status(fiber.StatusOK).JSON(fiber.Map{
-		"error": false,
-		"msg":   "Success get data buku",
-		"data":  data,
-	})
+	return f.Status(fiber.StatusOK).JSON(buku_response.GetAllPenerbitBukuResponse(data, "Success get data penerbit buku", false))
 }
 
-func (c *Controller) GetJenisBukuById(f *fiber.Ctx) error {
-	data, err := c.service.GetJenisBukuById(html.EscapeString(strings.TrimSpace(f.Params("id"))))
+func (c *Controller) GetPenerbitBukuById(f *fiber.Ctx) error {
+	data, err := c.service.GetPenerbitBukuById(html.EscapeString(strings.TrimSpace(f.Params("id"))))
 	if err != nil {
 		return f.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error": true,
 			"msg":   err.Error(),
 		})
 	}
-	response := buku_response.GetJenisBukuByIdResponse(data)
+	response := buku_response.GetPenerbitBukuByIdResponse(data, "Success get data penerbit buku", false)
 	return f.Status(fiber.StatusOK).JSON(response)
 }
 
-func (c *Controller) CreateJenisBuku(f *fiber.Ctx) error {
-	jenbuk := new(buku_request.Jenis_Buku_Request)
+func (c *Controller) CreatePenerbitBuku(f *fiber.Ctx) error {
+	jenbuk := new(buku_request.Penerbit_Buku_Request)
 	if err := f.BodyParser(&jenbuk); err != nil {
 		return f.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": true,
@@ -73,21 +70,18 @@ func (c *Controller) CreateJenisBuku(f *fiber.Ctx) error {
 			"msg":   buku_response.ErrInvalidFormatJson,
 		})
 	}
-	data, err := c.service.CreateJenisBuku(*jenbuk.CreateJenisBuku())
+	data, err := c.service.CreatePenerbitBuku(*jenbuk.CreatePenerbitBuku())
 	if err != nil {
 		return f.Status(fiber.StatusBadGateway).JSON(fiber.Map{
 			"error": true,
 			"msg":   err.Error(),
 		})
 	}
-	return f.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"msg":  "Success added jenis buku",
-		"data": data,
-	})
+	return f.Status(fiber.StatusCreated).JSON(buku_response.GetPenerbitBukuByIdResponse(&data, "Success insert data penerbit buku", false))
 }
 
-func (c *Controller) UpdateJenisBuku(f *fiber.Ctx) error {
-	jenbuk := new(buku_request.Jenis_Buku_Request_Update)
+func (c *Controller) UpdatePenerbitBuku(f *fiber.Ctx) error {
+	jenbuk := new(buku_request.Penerbit_Buku_Request_Update)
 	if err := f.BodyParser(&jenbuk); err != nil {
 		return f.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": true,
@@ -101,7 +95,7 @@ func (c *Controller) UpdateJenisBuku(f *fiber.Ctx) error {
 			"msg":   buku_response.ErrInvalidFormatJson,
 		})
 	}
-	data, err := c.service.UpdateJenisBuku(*jenbuk.UpdateJenisBuku(jenbuk.IDJenis))
+	data, err := c.service.UpdatePenerbitBuku(*jenbuk.UpdatePenerbitBuku(jenbuk.IDPenerbit))
 
 	if err != nil {
 		return f.Status(fiber.StatusBadGateway).JSON(fiber.Map{
@@ -110,14 +104,11 @@ func (c *Controller) UpdateJenisBuku(f *fiber.Ctx) error {
 		})
 	}
 
-	return f.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"msg":  "Success update jenis buku",
-		"data": data,
-	})
+	return f.Status(fiber.StatusCreated).JSON(buku_response.GetPenerbitBukuByIdResponse(&data, "Success update data penerbit buku", false))
 }
 
-func (c *Controller) DeleteJenisBuku(f *fiber.Ctx) error {
-	jenbuk := new(buku_request.Jenis_Buku_Request_Delete)
+func (c *Controller) DeletePenerbitBuku(f *fiber.Ctx) error {
+	jenbuk := new(buku_request.Penerbit_Buku_Request_Delete)
 	if err := f.BodyParser(&jenbuk); err != nil {
 		return f.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": true,
@@ -131,13 +122,13 @@ func (c *Controller) DeleteJenisBuku(f *fiber.Ctx) error {
 			"msg":   cekValid.Error(),
 		})
 	}
-	if err := c.service.HapusJenisBuku(jenbuk.IDJenis); err != nil {
+	if err := c.service.HapusPenerbitBuku(jenbuk.IDPenerbit); err != nil {
 		return f.Status(fiber.StatusBadGateway).JSON(fiber.Map{
 			"error": true,
 			"msg":   err.Error(),
 		})
 	}
 	return f.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"msg": "Success delete jenis buku",
+		"msg": "Success delete penerbit buku",
 	})
 }
