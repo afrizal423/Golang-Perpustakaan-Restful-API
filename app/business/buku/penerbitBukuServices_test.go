@@ -62,7 +62,7 @@ func TestInsertPenbuk(t *testing.T) {
 			}
 
 			_, err := PenbukServices.CreatePenerbitBuku(penbukInsert)
-			assert.Equal(t, errors.New("inputan minimal 5 karakter dan maksimal 255"), err)
+			assert.Equal(t, errors.New("inputan nama penerbit buku minimal 5 karakter dan maksimal 255"), err)
 		})
 
 		t.Run("Alamat penerbit buku", func(t *testing.T) {
@@ -86,7 +86,7 @@ func TestInsertPenbuk(t *testing.T) {
 			}
 
 			_, err := PenbukServices.CreatePenerbitBuku(penbukInsert)
-			assert.Equal(t, errors.New("inputan minimal 5 karakter dan maksimal 255"), err)
+			assert.Equal(t, errors.New("inputan alamat penerbit minimal 5 karakter dan maksimal 255"), err)
 		})
 
 		t.Run("Telepon penerbit buku", func(t *testing.T) {
@@ -98,7 +98,7 @@ func TestInsertPenbuk(t *testing.T) {
 				EmailPenerbit:  "penerbit@buku.com",
 				Deskripsi:      "ini deskripsi penerbit buku",
 			}
-			PenbukRepoInterfaceMock.On("CreatePenerbitBuku", penbukDummy).Return(penbukDummy, errors.New("inputan minimal 5 karakter dan maksimal 255")).Once()
+			PenbukRepoInterfaceMock.On("CreatePenerbitBuku", penbukDummy).Return(penbukDummy, errors.New("inputan telp penerbit minimal 5 karakter nomor telp")).Once()
 
 			penbukInsert := models.Penerbit_Buku{
 				IDPenerbit:     "01H019WHW4A45KH65AH9XW89PC",
@@ -110,7 +110,7 @@ func TestInsertPenbuk(t *testing.T) {
 			}
 
 			_, err := PenbukServices.CreatePenerbitBuku(penbukInsert)
-			assert.Equal(t, errors.New("inputan minimal 5 karakter dan maksimal 255"), err)
+			assert.Equal(t, errors.New("inputan telp penerbit minimal 5 karakter nomor telp"), err)
 		})
 
 		t.Run("Email penerbit buku", func(t *testing.T) {
@@ -158,7 +158,7 @@ func TestInsertPenbuk(t *testing.T) {
 			}
 
 			_, err := PenbukServices.CreatePenerbitBuku(penbukInsert)
-			assert.Equal(t, errors.New("inputan minimal 5 karakter dan maksimal 255"), err)
+			assert.Equal(t, errors.New("inputan Deskripsi penerbit minimal 5 karakter dan maksimal 255"), err)
 		})
 	})
 }
@@ -229,7 +229,7 @@ func TestUpdateDataPenBuk(t *testing.T) {
 			IDPenerbit:     "01H019WHW4A45KH65AH9XW89PC",
 			PenerbitBuku:   "penerbit",
 			AlamatPenerbit: "alamat penerbit",
-			TelpPenerbit:   "031",
+			TelpPenerbit:   "0310341",
 			EmailPenerbit:  "penerbit@buku.com",
 			Deskripsi:      "ini deskripsi penerbit buku",
 		}
