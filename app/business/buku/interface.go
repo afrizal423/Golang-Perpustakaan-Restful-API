@@ -43,4 +43,13 @@ type IBukuRepository interface {
 	UpdatePenerbitBuku(data models.Penerbit_Buku) (models.Penerbit_Buku, error)
 	DeletePenerbitBuku(id string) error
 	HitungDataPenerbitBuku(id string) int64
+
+	// penulis buku
+
+	CreatePenulisBuku(data models.Penulis_Buku) (models.Penulis_Buku, error)
+	UpdatePenulisBuku(data models.Penulis_Buku) (models.Penulis_Buku, error)
+	HitungDataPenulisBuku(id string)
+	GetAllPenulisBuku() ([]models.Penulis_Buku, error)
+	CariPenulisBuku(c string) ([]models.Penulis_Buku, error)
+	GetPenulisBukuById(id string) (*models.Penulis_Buku, error)
 }

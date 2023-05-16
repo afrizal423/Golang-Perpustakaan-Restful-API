@@ -64,6 +64,32 @@ func (_m *IBukuRepository) CariPenerbitBuku(c string) ([]models.Penerbit_Buku, e
 	return r0, r1
 }
 
+// CariPenulisBuku provides a mock function with given fields: c
+func (_m *IBukuRepository) CariPenulisBuku(c string) ([]models.Penulis_Buku, error) {
+	ret := _m.Called(c)
+
+	var r0 []models.Penulis_Buku
+	var r1 error
+	if rf, ok := ret.Get(0).(func(string) ([]models.Penulis_Buku, error)); ok {
+		return rf(c)
+	}
+	if rf, ok := ret.Get(0).(func(string) []models.Penulis_Buku); ok {
+		r0 = rf(c)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]models.Penulis_Buku)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(string) error); ok {
+		r1 = rf(c)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // CreateJenisBuku provides a mock function with given fields: data
 func (_m *IBukuRepository) CreateJenisBuku(data models.Jenis_Buku) (models.Jenis_Buku, error) {
 	ret := _m.Called(data)
@@ -104,6 +130,30 @@ func (_m *IBukuRepository) CreatePenerbitBuku(data models.Penerbit_Buku) (models
 	}
 
 	if rf, ok := ret.Get(1).(func(models.Penerbit_Buku) error); ok {
+		r1 = rf(data)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// CreatePenulisBuku provides a mock function with given fields: data
+func (_m *IBukuRepository) CreatePenulisBuku(data models.Penulis_Buku) (models.Penulis_Buku, error) {
+	ret := _m.Called(data)
+
+	var r0 models.Penulis_Buku
+	var r1 error
+	if rf, ok := ret.Get(0).(func(models.Penulis_Buku) (models.Penulis_Buku, error)); ok {
+		return rf(data)
+	}
+	if rf, ok := ret.Get(0).(func(models.Penulis_Buku) models.Penulis_Buku); ok {
+		r0 = rf(data)
+	} else {
+		r0 = ret.Get(0).(models.Penulis_Buku)
+	}
+
+	if rf, ok := ret.Get(1).(func(models.Penulis_Buku) error); ok {
 		r1 = rf(data)
 	} else {
 		r1 = ret.Error(1)
@@ -192,6 +242,32 @@ func (_m *IBukuRepository) GetAllPenerbitBuku() ([]models.Penerbit_Buku, error) 
 	return r0, r1
 }
 
+// GetAllPenulisBuku provides a mock function with given fields:
+func (_m *IBukuRepository) GetAllPenulisBuku() ([]models.Penulis_Buku, error) {
+	ret := _m.Called()
+
+	var r0 []models.Penulis_Buku
+	var r1 error
+	if rf, ok := ret.Get(0).(func() ([]models.Penulis_Buku, error)); ok {
+		return rf()
+	}
+	if rf, ok := ret.Get(0).(func() []models.Penulis_Buku); ok {
+		r0 = rf()
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]models.Penulis_Buku)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func() error); ok {
+		r1 = rf()
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // GetJenisBukuById provides a mock function with given fields: id
 func (_m *IBukuRepository) GetJenisBukuById(id string) (*models.Jenis_Buku, error) {
 	ret := _m.Called(id)
@@ -244,6 +320,32 @@ func (_m *IBukuRepository) GetPenerbitBukuById(id string) (*models.Penerbit_Buku
 	return r0, r1
 }
 
+// GetPenulisBukuById provides a mock function with given fields: id
+func (_m *IBukuRepository) GetPenulisBukuById(id string) (*models.Penulis_Buku, error) {
+	ret := _m.Called(id)
+
+	var r0 *models.Penulis_Buku
+	var r1 error
+	if rf, ok := ret.Get(0).(func(string) (*models.Penulis_Buku, error)); ok {
+		return rf(id)
+	}
+	if rf, ok := ret.Get(0).(func(string) *models.Penulis_Buku); ok {
+		r0 = rf(id)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*models.Penulis_Buku)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(string) error); ok {
+		r1 = rf(id)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // HitungDataJenisBuku provides a mock function with given fields: id
 func (_m *IBukuRepository) HitungDataJenisBuku(id string) int64 {
 	ret := _m.Called(id)
@@ -270,6 +372,11 @@ func (_m *IBukuRepository) HitungDataPenerbitBuku(id string) int64 {
 	}
 
 	return r0
+}
+
+// HitungDataPenulisBuku provides a mock function with given fields: id
+func (_m *IBukuRepository) HitungDataPenulisBuku(id string) {
+	_m.Called(id)
 }
 
 // UpdateJenisBuku provides a mock function with given fields: data
@@ -312,6 +419,30 @@ func (_m *IBukuRepository) UpdatePenerbitBuku(data models.Penerbit_Buku) (models
 	}
 
 	if rf, ok := ret.Get(1).(func(models.Penerbit_Buku) error); ok {
+		r1 = rf(data)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// UpdatePenulisBuku provides a mock function with given fields: data
+func (_m *IBukuRepository) UpdatePenulisBuku(data models.Penulis_Buku) (models.Penulis_Buku, error) {
+	ret := _m.Called(data)
+
+	var r0 models.Penulis_Buku
+	var r1 error
+	if rf, ok := ret.Get(0).(func(models.Penulis_Buku) (models.Penulis_Buku, error)); ok {
+		return rf(data)
+	}
+	if rf, ok := ret.Get(0).(func(models.Penulis_Buku) models.Penulis_Buku); ok {
+		r0 = rf(data)
+	} else {
+		r0 = ret.Get(0).(models.Penulis_Buku)
+	}
+
+	if rf, ok := ret.Get(1).(func(models.Penulis_Buku) error); ok {
 		r1 = rf(data)
 	} else {
 		r1 = ret.Error(1)
