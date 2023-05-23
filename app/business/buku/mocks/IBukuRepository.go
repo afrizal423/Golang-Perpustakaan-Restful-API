@@ -190,6 +190,20 @@ func (_m *IBukuRepository) DeletePenerbitBuku(id string) error {
 	return r0
 }
 
+// DeletePenulisBuku provides a mock function with given fields: id
+func (_m *IBukuRepository) DeletePenulisBuku(id string) error {
+	ret := _m.Called(id)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(string) error); ok {
+		r0 = rf(id)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // GetAllJenisBuku provides a mock function with given fields:
 func (_m *IBukuRepository) GetAllJenisBuku() ([]models.Jenis_Buku, error) {
 	ret := _m.Called()
@@ -375,8 +389,17 @@ func (_m *IBukuRepository) HitungDataPenerbitBuku(id string) int64 {
 }
 
 // HitungDataPenulisBuku provides a mock function with given fields: id
-func (_m *IBukuRepository) HitungDataPenulisBuku(id string) {
-	_m.Called(id)
+func (_m *IBukuRepository) HitungDataPenulisBuku(id string) int64 {
+	ret := _m.Called(id)
+
+	var r0 int64
+	if rf, ok := ret.Get(0).(func(string) int64); ok {
+		r0 = rf(id)
+	} else {
+		r0 = ret.Get(0).(int64)
+	}
+
+	return r0
 }
 
 // UpdateJenisBuku provides a mock function with given fields: data

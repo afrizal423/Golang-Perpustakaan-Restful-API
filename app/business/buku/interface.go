@@ -20,6 +20,15 @@ type IBukuService interface {
 	CreatePenerbitBuku(data models.Penerbit_Buku) (models.Penerbit_Buku, error)
 	UpdatePenerbitBuku(data models.Penerbit_Buku) (models.Penerbit_Buku, error)
 	HapusPenerbitBuku(id string) error
+
+	// penulis buku
+
+	GetAllPenulisBuku() ([]models.Penulis_Buku, error)
+	FindPenulisBuku(c string) ([]models.Penulis_Buku, error)
+	GetPenulisBukuById(id string) (*models.Penulis_Buku, error)
+	CreatePenulisBuku(data models.Penulis_Buku) (models.Penulis_Buku, error)
+	UpdatePenulisBuku(data models.Penulis_Buku) (models.Penulis_Buku, error)
+	HapusPenulisBuku(id string) error
 }
 
 //go:generate mockery --name IBukuRepository
@@ -48,7 +57,8 @@ type IBukuRepository interface {
 
 	CreatePenulisBuku(data models.Penulis_Buku) (models.Penulis_Buku, error)
 	UpdatePenulisBuku(data models.Penulis_Buku) (models.Penulis_Buku, error)
-	HitungDataPenulisBuku(id string)
+	DeletePenulisBuku(id string) error
+	HitungDataPenulisBuku(id string) int64
 	GetAllPenulisBuku() ([]models.Penulis_Buku, error)
 	CariPenulisBuku(c string) ([]models.Penulis_Buku, error)
 	GetPenulisBukuById(id string) (*models.Penulis_Buku, error)

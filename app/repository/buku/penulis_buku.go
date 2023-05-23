@@ -29,6 +29,14 @@ func (q *BukuRepository) HitungDataPenulisBuku(id string) int64 {
 	return count
 }
 
+func (q *BukuRepository) DeletePenulisBuku(id string) error {
+	var data models.Penulis_Buku
+	if err := q.db.Where("id_penulis = ?", id).Delete(&data).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
 func (q *BukuRepository) GetAllPenulisBuku() ([]models.Penulis_Buku, error) {
 	var data, result []models.Penulis_Buku
 	if err := q.db.Find(&data).Error; err != nil {

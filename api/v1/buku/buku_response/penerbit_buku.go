@@ -2,28 +2,28 @@ package buku_response
 
 import "github.com/afrizal423/Golang-Perpustakaan-Restful-API/app/models"
 
-type ResponseSingleData struct {
+type ResponseSingleDataPenerbit struct {
 	Error  bool                  `json:"error"`
 	Status string                `json:"status"`
 	Data   *models.Penerbit_Buku `json:"data"`
 }
 
-type ResponseManyData struct {
+type ResponseManyDataPenerbit struct {
 	Error  bool                   `json:"error"`
 	Status string                 `json:"status"`
 	Data   []models.Penerbit_Buku `json:"data"`
 }
 
-func GetPenerbitBukuByIdResponse(data *models.Penerbit_Buku, msg string, err bool) ResponseSingleData {
-	var dt ResponseSingleData
+func GetPenerbitBukuByIdResponse(data *models.Penerbit_Buku, msg string, err bool) ResponseSingleDataPenerbit {
+	var dt ResponseSingleDataPenerbit
 	dt.Error = err
 	dt.Status = msg
 	dt.Data = data
 	return dt
 }
 
-func GetAllPenerbitBukuResponse(data []models.Penerbit_Buku, msg string, err bool) ResponseManyData {
-	var dt ResponseManyData
+func GetAllPenerbitBukuResponse(data []models.Penerbit_Buku, msg string, err bool) ResponseManyDataPenerbit {
+	var dt ResponseManyDataPenerbit
 	dt.Error = err
 	dt.Status = msg
 	dt.Data = data

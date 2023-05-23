@@ -75,7 +75,9 @@ func (s *BukuService) CreatePenulisBuku(data models.Penulis_Buku) (models.Penuli
 
 func (s *BukuService) UpdatePenulisBuku(data models.Penulis_Buku) (models.Penulis_Buku, error) {
 	var jb models.Penulis_Buku
-
+	if s.Repository.HitungDataPenulisBuku(data.IDPenulis) == 0 {
+		return models.Penulis_Buku{}, errors.New("data kosong")
+	}
 	// validasi inputan nama penulis buku
 	if len(data.PenulisBuku) <= 5 || len(data.PenulisBuku) >= 255 {
 		return models.Penulis_Buku{}, errors.New("inputan nama penulis buku minimal 5 karakter dan maksimal 255")
@@ -104,4 +106,14 @@ func (s *BukuService) UpdatePenulisBuku(data models.Penulis_Buku) (models.Penuli
 		return jb, err
 	}
 	return data, nil
+}
+
+func (s *BukuService) HapusPenulisBuku(id string) error {
+	if s.Repository.HitungDataPenulisBuku(id) == 0 {
+		return errors.New("data kosong")
+	}
+	if err := s.Repository.DeletePenulisBuku(id); err != nil {
+		return err
+	}
+	return nil
 }
