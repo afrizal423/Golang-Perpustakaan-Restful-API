@@ -95,7 +95,7 @@ func TestGetDataAuthorBook(t *testing.T) {
 
 }
 func TestInsertAuthorbook(t *testing.T) {
-	t.Run("Success insert penerbit buku", func(t *testing.T) {
+	t.Run("Success insert Penulis buku", func(t *testing.T) {
 		PenulisBukDummy := models.Penulis_Buku{
 			IDPenulis:     "01H019WHW4A45KH65AH9XW89PC",
 			PenulisBuku:   "ini penulis",
@@ -246,6 +246,36 @@ func TestUpdateAuthorbook(t *testing.T) {
 			Deskripsi:     "ini deskripsi buku",
 		}
 		_, err := AuthorbukServices.UpdatePenulisBuku(penbukInsert)
+		assert.Equal(t, errors.New("data kosong"), err)
+	})
+}
+
+func TestHapusDataAuthorbuk(t *testing.T) {
+	t.Run("Success hapus data", func(t *testing.T) {
+		penbukDummy := models.Penulis_Buku{
+			IDPenulis:     "01H019WHW4A45KH65AH9XW89PC",
+			PenulisBuku:   "ini penulis",
+			AlamatPenulis: "ini alamat penulis",
+			EmailPenulis:  "a@a.com",
+			Deskripsi:     "ini deskripsi buku",
+		}
+		AuthorbukRepoInterfaceMock.On("HitungDataPenulisBuku", mock.Anything).Return(int64(1)).Once()
+		AuthorbukRepoInterfaceMock.On("DeletePenulisBuku", mock.Anything).Return(nil).Once()
+		err := AuthorbukServices.HapusPenulisBuku(penbukDummy.IDPenulis)
+		assert.Equal(t, nil, err)
+	})
+
+	t.Run("failed hapus data empty id", func(t *testing.T) {
+		penbukDummy := models.Penulis_Buku{
+			IDPenulis:     "01H019WHW4A45KH65AH9XW89PC",
+			PenulisBuku:   "ini penulis",
+			AlamatPenulis: "ini alamat penulis",
+			EmailPenulis:  "a@a.com",
+			Deskripsi:     "ini deskripsi buku",
+		}
+		AuthorbukRepoInterfaceMock.On("HitungDataPenulisBuku", mock.Anything).Return(int64(0)).Once()
+		AuthorbukRepoInterfaceMock.On("DeletePenulisBuku", mock.Anything).Return(nil).Once()
+		err := AuthorbukServices.HapusPenulisBuku(penbukDummy.IDPenulis)
 		assert.Equal(t, errors.New("data kosong"), err)
 	})
 }
