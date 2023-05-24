@@ -9,19 +9,15 @@
 
 Project sederhana membuat Sistem Informasi Perpustakaan berbasis Restful API menggunakan bahasa pemrograman Go dengan database MySql. Alur projectnya kurang lebihnya seperti [ini](https://core.ac.uk/download/pdf/12347733.pdf). Password hash menggunakan argon2id
 
-### User Level :boy: :woman:
-- Pegawai 
-- Siswa  <i>(soon)</i> 
 
 ### ToDo List Pengerjaan Project :pushpin:
 - [x] Create Migration table
 - [x] Create Seed data akun admin
-- [ ] Register siswa
 - [ ] Login With JWT
 - [ ] CRUDF Buku
-    - [ ] CRUDF Jenis buku
-    - [ ] CRUDF Penulis buku
-    - [ ] CRUDF Penerbit buku
+    - [x] CRUDF Jenis buku
+    - [x] CRUDF Penulis buku
+    - [x] CRUDF Penerbit buku
 - [ ] CRUDF peminjaman
     - [ ] CRUDF Detail pinjam
     - [ ] CRUDF Denda
